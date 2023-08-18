@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Loading from './Loading';
+import LazyLoading from './components/animate/loading/LazyLoading';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <React.Suspense fallback={<Loading />}>
+    <React.Suspense fallback={<LazyLoading />}>
       <App />
     </React.Suspense>
   </React.StrictMode>
