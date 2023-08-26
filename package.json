@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.2.7",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.0",
+    "openai": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@iconify/react": "^4.1.1",
     "@types/uuid": "^9.0.2"
   }
