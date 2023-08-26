@@ -33,7 +33,7 @@ export default function AuthorizedLayout() {
                 <Toolbar disableGutters sx={{ pl: 2 }}>
                     <img
                         loading="eager"
-                        src='assets/Raymond-Arthur_May.svg'
+                        src='/assets/Raymond-Arthur_May.svg'
                         alt='loading signature'
                         width='auto'
                         height={75}
