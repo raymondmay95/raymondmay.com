@@ -1,15 +1,17 @@
-import { CalendarTodayOutlined, HomeOutlined, Logout, Menu as MenuIcon, NoteAltOutlined, Person, Settings, TaskOutlined } from '@mui/icons-material';
-import { Avatar, Container, Divider, Drawer, IconButton, Menu, MenuItem, MenuItemProps, MenuList, MenuProps, Stack, Toolbar, alpha, styled } from "@mui/material";
+import { CalendarTodayOutlined, HomeOutlined, Logout, Menu as MenuIcon, MenuOpenOutlined, NoteAltOutlined, Person, Settings, TaskOutlined } from '@mui/icons-material';
+import { Avatar, Box, Container, Divider, Drawer, DrawerProps, IconButton, Menu, MenuItem, MenuItemProps, MenuList, MenuProps, Stack, Toolbar, alpha, styled } from "@mui/material";
 import { deepOrange, orange } from '@mui/material/colors';
 import { useState } from 'react';
 import { NavLink, NavLinkProps, Outlet, useLocation } from 'react-router-dom';
+import useResponsive from '../../hooks/useResponsive';
 
 const themeColor = orange
-const drawerWidth = 150
+const drawerWidth = 175
 
 export default function AuthorizedLayout() {
     const { pathname } = useLocation()
-    const [openDrawer, setOpenDrawer] = useState(false)
+    const isDesktop = useResponsive('up', 'md')
+    const [openDrawer, setOpenDrawer] = useState(isDesktop)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,17 +20,21 @@ export default function AuthorizedLayout() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const handleOpenDrawer = () => {
-        setOpenDrawer(true)
+    const handleToggleDrawer = () => {
+        setOpenDrawer(prev => !prev)
     }
     const handleCloseDrawer = () => {
         setOpenDrawer(false)
     }
+    const handleMenuItemClick = () => {
+        !isDesktop && handleCloseDrawer()
+    }
+    const drawerVariant: DrawerProps['variant'] = isDesktop ? 'persistent' : 'temporary'
     return (
-        <>
+        <Main open={openDrawer && isDesktop}>
             <Drawer
                 anchor='left'
-                variant='temporary'
+                variant={drawerVariant}
                 open={openDrawer}
                 onClose={handleCloseDrawer}
                 PaperProps={{
@@ -40,10 +46,6 @@ export default function AuthorizedLayout() {
                         alignItems: 'center'
                     }
                 }}
-                sx={(theme) => ({
-                    bgcolor: alpha(themeColor[800], theme.palette.action.selectedOpacity) + ' !important'
-                }
-                )}
             >
                 <Toolbar disableGutters>
                     <img
@@ -65,7 +67,7 @@ export default function AuthorizedLayout() {
                         selected={pathname === '/authorized/home'}
                         to='/authorized/home'
                         component={NavLink}
-                        onClick={handleCloseDrawer}
+                        onClick={handleMenuItemClick}
                     >
                         <HomeOutlined />
                         Home
@@ -74,7 +76,7 @@ export default function AuthorizedLayout() {
                         selected={pathname === '/authorized/schedule'}
                         to='/authorized/schedule'
                         component={NavLink}
-                        onClick={handleCloseDrawer}
+                        onClick={handleMenuItemClick}
                     >
                         <CalendarTodayOutlined />
                         Schedule
@@ -83,7 +85,7 @@ export default function AuthorizedLayout() {
                         selected={pathname === '/authorized/notes'}
                         to='/authorized/notes'
                         component={NavLink}
-                        onClick={handleCloseDrawer}
+                        onClick={handleMenuItemClick}
                     >
                         <NoteAltOutlined />
                         Notes
@@ -92,7 +94,7 @@ export default function AuthorizedLayout() {
                         selected={pathname === '/authorized/tasks'}
                         to='/authorized/tasks'
                         component={NavLink}
-                        onClick={handleCloseDrawer}
+                        onClick={handleMenuItemClick}
                     >
                         <TaskOutlined />
                         Tasks
@@ -127,38 +129,39 @@ export default function AuthorizedLayout() {
                     </MenuItem>
                 </Stack>
             </ProfileMenu>
-            <Stack spacing={3}>
-                <Toolbar
+            <Toolbar
+                sx={{
+                    backgroundColor: alpha(themeColor[50], .2),
+                    justifyContent: 'space-between'
+                }}>
+                <IconButton onClick={handleToggleDrawer}>
+                    {openDrawer
+                        ? <MenuOpenOutlined />
+                        : <MenuIcon />
+                    }
+                </IconButton>
+                <IconButton
+                    onClick={handleClick}
+                    id='avatar-button'
                     sx={{
-                        backgroundColor: alpha(themeColor[50], .2),
-                        justifyContent: 'space-between'
-                    }}>
-                    <IconButton onClick={handleOpenDrawer}>
-                        <MenuIcon />
-                    </IconButton>
-                    <IconButton
-                        onClick={handleClick}
-                        id='avatar-button'
+                        width: 45,
+                        height: 45
+                    }}
+                >
+                    <Avatar
                         sx={{
-                            width: 45,
-                            height: 45
+                            bgcolor: deepOrange[400],
+                            fontSize: 16,
                         }}
                     >
-                        <Avatar
-                            sx={{
-                                bgcolor: deepOrange[400],
-                                fontSize: 16,
-                            }}
-                        >
-                            RM
-                        </Avatar>
-                    </IconButton>
-                </Toolbar>
-                <Container sx={{ margin: 4 }}>
-                    <Outlet />
-                </Container>
-            </Stack>
-        </>
+                        RM
+                    </Avatar>
+                </IconButton>
+            </Toolbar>
+            <Container>
+                <Outlet />
+            </Container>
+        </Main>
     )
 }
 
@@ -251,4 +254,22 @@ const ProfileMenu = styled((props: MenuProps) => (
             },
         },
     },
+}));
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+    open?: boolean;
+}>(({ theme, open }) => ({
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: 0,
+    ...(open && {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: `${drawerWidth}px`,
+    }),
 }));
