@@ -6,9 +6,10 @@ export default function LazyLoading() {
         <Box className='loading__Box'>
             <div style={{
                 backgroundImage: 'assets/transparent.png',
-                width: '100vh',
-                height: '100vh',
-                backgroundColor: '#999'
+                width: '86vw',
+                height: '86vh',
+                backgroundColor: '#999',
+                overflow: 'hidden'
             }} />
         </Box>
     );

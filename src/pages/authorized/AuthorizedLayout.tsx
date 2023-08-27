@@ -1,13 +1,12 @@
 import { CalendarTodayOutlined, HomeOutlined, Logout, Menu as MenuIcon, MenuOpenOutlined, NoteAltOutlined, Person, Settings, TaskOutlined } from '@mui/icons-material';
 import { Avatar, Container, Divider, Drawer, DrawerProps, IconButton, Menu, MenuItem, MenuItemProps, MenuList, MenuProps, Stack, Toolbar, alpha, styled } from "@mui/material";
-import { deepOrange, orange } from '@mui/material/colors';
+import { deepOrange } from '@mui/material/colors';
 import { useState } from 'react';
 import { signOut } from 'firebase/auth'
 import { NavLink, NavLinkProps, Outlet, useLocation } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
 import { Auth } from '../../auth/AuthContext';
 
-const themeColor = orange
 const drawerWidth = 175
 
 export default function AuthorizedLayout() {
@@ -41,7 +40,6 @@ export default function AuthorizedLayout() {
                 onClose={handleCloseDrawer}
                 PaperProps={{
                     sx: {
-                        bgcolor: themeColor[50],
                         width: drawerWidth,
                         display: 'flex',
                         flexDirection: 'column',
@@ -61,9 +59,6 @@ export default function AuthorizedLayout() {
                 <Divider flexItem light />
                 <MenuList
                     disablePadding
-                    sx={{
-                        backgroundColor: themeColor[50],
-                    }}
                 >
                     <StyledNavMenuItem
                         selected={pathname === '/authorized/home'}
@@ -110,9 +105,6 @@ export default function AuthorizedLayout() {
                 onClose={handleClose}
                 MenuListProps={{
                     'aria-labelledby': 'avatar-button',
-                    sx: {
-                        backgroundColor: themeColor[50],
-                    }
                 }}
             >
                 <Stack spacing={.5} p={.75}>
@@ -133,7 +125,6 @@ export default function AuthorizedLayout() {
             </ProfileMenu>
             <Toolbar
                 sx={{
-                    backgroundColor: alpha(themeColor[50], .2),
                     justifyContent: 'space-between'
                 }}>
                 <IconButton onClick={handleToggleDrawer}>
@@ -173,35 +164,11 @@ const StyledNavMenuItem = styled((props: MenuItemProps & NavLinkProps) => (
     height: 55,
     fontSize: 18,
     width: drawerWidth,
-    backgroundColor: selected
-        ? alpha(
-            themeColor[800],
-            theme.palette.action.selectedOpacity,
-        ) + ' !important'
-        : '',
     color: selected ? theme.palette.text.primary : theme.palette.text.secondary,
     '& .MuiSvgIcon-root': {
         fontSize: 18,
         color: selected ? theme.palette.text.primary : theme.palette.text.secondary,
         marginRight: theme.spacing(1.5),
-    },
-    '&$selected': {
-        backgroundColor: alpha(
-            themeColor[800],
-            theme.palette.action.selectedOpacity,
-        ) + ' !important',
-    },
-    '&:active': {
-        backgroundColor: alpha(
-            themeColor[800],
-            theme.palette.action.selectedOpacity,
-        ),
-    },
-    '&:hover': {
-        backgroundColor: alpha(
-            themeColor[800],
-            theme.palette.action.selectedOpacity,
-        ),
     },
 }))
 
@@ -228,10 +195,10 @@ const ProfileMenu = styled((props: MenuProps) => (
             theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
         boxShadow:
             ` 
-              ${alpha(themeColor[400], theme.palette.action.selectedOpacity)} 0px 1px 0px 1px,
-              ${alpha(themeColor[800], theme.palette.action.selectedOpacity)} 0px 0px 0px 1px,
-              ${alpha(themeColor[400], theme.palette.action.selectedOpacity)} 0px 10px 15px -3px,
-              ${alpha(themeColor[800], theme.palette.action.selectedOpacity)} 0px 4px 6px -2px
+              ${alpha('rgba(0,0,0,.2)', theme.palette.action.selectedOpacity)} 0px 1px 0px 1px,
+              ${alpha('rgba(0,0,0,.2)', theme.palette.action.selectedOpacity)} 0px 0px 0px 1px,
+              ${alpha('rgba(0,0,0,.2)', theme.palette.action.selectedOpacity)} 0px 10px 15px -3px,
+              ${alpha('rgba(0,0,0,.2)', theme.palette.action.selectedOpacity)} 0px 4px 6px -2px
             `,
         '& .MuiMenu-list': {
             padding: '0',
@@ -241,18 +208,6 @@ const ProfileMenu = styled((props: MenuProps) => (
                 fontSize: 18,
                 color: theme.palette.text.secondary,
                 marginRight: theme.spacing(1.5),
-            },
-            '&:active': {
-                backgroundColor: alpha(
-                    themeColor[800],
-                    theme.palette.action.selectedOpacity,
-                ),
-            },
-            '&:hover': {
-                backgroundColor: alpha(
-                    themeColor[800],
-                    theme.palette.action.selectedOpacity,
-                ),
             },
         },
     },
