@@ -32,8 +32,8 @@ export function LoginComponent() {
     const { handleSubmit, setError, formState: { isSubmitting, isSubmitSuccessful, errors: { password: passwordError } } } = methods;
     const onSubmit = handleSubmit(
         async ({ email, password }) => {
-            await signInWithEmailAndPassword(Auth, email, password).then(() => {
-                console.log('Navigate');
+            await signInWithEmailAndPassword(Auth, email, password).then(({ user }) => {
+                // Success will be handled in AuthContext
             }).catch((error) => {
                 console.error(error);
                 setError('password', { message: 'Please enter the correct password.' });
@@ -45,7 +45,7 @@ export function LoginComponent() {
     return (
         <Box
             sx={{
-                height: '100vh',
+                height: '86vh',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',

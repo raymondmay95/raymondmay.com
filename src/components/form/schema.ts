@@ -7,8 +7,8 @@ export const passwordSchema = Yup
     .string()
     .required('Password is required')
     .min(8, 'Password must be at least 8 characters')
-    .matches(/[a-z]/, 'Password must have at least one lowercase char')
-    .matches(/[A-Z]/, 'Password must have at least one uppercase char')
+    .matches(/[a-z]/, 'Password must have at least one lowercase character.')
+    .matches(/[A-Z]/, 'Password must have at least one uppercase character.')
     .matches(
         /[a-zA-Z]+[^a-zA-Z\s]+/, "Password must have at least 1 number or special char (@,!,#, etc)."
     );

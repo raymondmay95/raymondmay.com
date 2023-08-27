@@ -1,3 +1,14 @@
-import { lazy } from "react";
+import { ElementType, Suspense, lazy } from "react";
+import Loading from "../components/animate/loading/Loading";
 
-export const HomePage = lazy(() => import('./home'))
+//--------------------
+const Loadable = (Component: ElementType) => (props: any) =>
+(
+    <Suspense fallback={<Loading />}>
+        <Component {...props} />
+    </Suspense>
+);
+//--------------------
+
+// Authorized Pages
+export const AuthHomePage = Loadable(lazy(() => import('./home')))

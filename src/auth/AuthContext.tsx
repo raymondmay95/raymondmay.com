@@ -1,7 +1,8 @@
-import { PropsWithChildren, createContext, useContext, useReducer } from "react";
+import { PropsWithChildren, createContext, useContext, useEffect, useReducer } from "react";
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from "./config";
+import { useSnackbar } from "notistack";
 
 // -------------------
 const app = initializeApp(firebaseConfig)
@@ -57,6 +58,7 @@ function authReducer(session: AuthSessionState, action: AuthSessionAction) {
 
 export default function AuthProvider(props: PropsWithChildren) {
     const { children } = props
+    const { enqueueSnackbar } = useSnackbar()
     const [session, dispatch] = useReducer(authReducer, InitialState)
 
     const _login = (user: any) => {
@@ -69,19 +71,21 @@ export default function AuthProvider(props: PropsWithChildren) {
         dispatch({ type: AuthSessionActionKind.INITIALIZE, payload: null })
     }
 
-    onAuthStateChanged(Auth,
-        (user) => {
-            _initialize()
-            if (user) {
-                _login(user)
-            } else {
-                session.isAutherized && _logout()
+    useEffect(() => {
+        return onAuthStateChanged(Auth,
+            (user) => {
+                _initialize()
+                if (user) {
+                    _login(user)
+                } else {
+                    _logout()
+                }
+            },
+            (error) => {
+                enqueueSnackbar(error.message, { variant: 'error' })
             }
-        },
-        (error) => {
-            console.error('auth error:', error)
-        }
-    )
+        )
+    }, [enqueueSnackbar])
 
     return (
         <AuthContext.Provider value={session}>

@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import AuthProvider from "./auth/AuthContext";
 
 function App() {
+
   useEffect(() => {
     window.scrollTo(0, 1)
   })
+
   return (
     <BrowserRouter>
       <AuthProvider>
