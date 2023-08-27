@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Auth } from "../AuthContext";
-import { Box, Divider, IconButton, Paper, Stack } from "@mui/material";
+import { Auth } from "../../auth/AuthContext";
+import { Box, Divider, Paper, Stack } from "@mui/material";
 import { EmailOutlined, PasswordOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import RHFTextField from "../../components/form/RHFTextField";
 import FormProvider from "../../components/form/FormProvider";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, validatePassword } from "firebase/auth";
 import { LoadingButton } from "@mui/lab";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -25,13 +25,37 @@ export function LoginComponent() {
     const methods = useForm({
         defaultValues,
         resolver: yupResolver(resolver),
-        mode: 'all',
-        reValidateMode: 'onChange',
+        mode: 'onChange',
+        reValidateMode: 'onBlur',
         shouldFocusError: true,
     });
-    const { handleSubmit, setError, formState: { isSubmitting, isSubmitSuccessful, errors: { password: passwordError } } } = methods;
+    const { handleSubmit,
+        setError,
+        formState: {
+            isSubmitting,
+            isSubmitSuccessful,
+            errors: { password: passwordError },
+        },
+        resetField,
+    } = methods;
+
     const onSubmit = handleSubmit(
         async ({ email, password }) => {
+            const {
+                isValid,
+                meetsMaxPasswordLength,
+                meetsMinPasswordLength
+            } = await validatePassword(Auth, password)
+
+            if (
+                !isValid ||
+                !meetsMaxPasswordLength ||
+                !meetsMinPasswordLength
+            ) {
+                setError('password', { message: 'Please enter a valid password.' });
+                return
+            }
+
             await signInWithEmailAndPassword(Auth, email, password).then(({ user }) => {
                 // Success will be handled in AuthContext
             }).catch((error) => {
@@ -68,33 +92,55 @@ export function LoginComponent() {
                         alt='loading signature'
                         width={300}
                         height='auto' />
-                    <Stack minWidth={300} spacing={3}>
+                    <Stack width={300} spacing={3}>
                         <RHFTextField
+                            fullWidth
                             InputProps={{
-                                startAdornment: <EmailOutlined sx={{ mr: 1 }} />,
+                                startAdornment: <EmailOutlined />,
                                 placeholder: 'Email',
                                 readOnly: true,
-                                sx: { borderRadius: 3 }
+                                sx: {
+                                    borderRadius: 3,
+                                },
+                                inputProps: {
+                                    sx: {
+                                        ml: 1,
+                                        '-webkit-background-clip': 'text !important'
+                                    }
+                                }
                             }}
                             label='Email'
                             type='email'
-                            name='email' />
+                            name='email'
+                            disabled
+                        />
                         <RHFTextField
+                            fullWidth
+                            autoFocus
                             InputLabelProps={{ required: true }}
                             InputProps={{
-                                startAdornment: <PasswordOutlined sx={{ mr: 1 }} />,
-                                endAdornment: <IconButton onClick={handleToggleViewPassword}>
-                                    {showPassword
-                                        ? <VisibilityOff />
-                                        : <Visibility />}
-                                </IconButton>,
-
+                                startAdornment: <PasswordOutlined />,
+                                endAdornment:
+                                    showPassword
+                                        ? <VisibilityOff onClick={handleToggleViewPassword} />
+                                        : <Visibility onClick={handleToggleViewPassword} />,
                                 placeholder: 'Password',
-                                sx: { borderRadius: 3 }
+                                sx: { borderRadius: 3 },
+                                inputProps: {
+                                    sx: {
+                                        mx: 1,
+                                        '-webkit-background-clip': 'text !important'
+                                    }
+                                }
                             }}
                             label='Password'
                             type={showPassword ? 'text' : 'password'}
-                            name='password' />
+                            name='password'
+                            onKeyDown={(event) => {
+                                if (event.key === 'Escape') {
+                                    resetField('password')
+                                }
+                            }} />
                         <Stack spacing={1}>
                             <Divider light />
                             <LoadingButton

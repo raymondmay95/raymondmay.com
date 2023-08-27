@@ -1,6 +1,6 @@
 import { Navigate, useRoutes } from "react-router-dom";
-import { AuthHomePage } from "../pages";
-import AuthorizedLayout from "../pages/authorized/AuthorizedLayout";
+import { AuthHomePage, AuthNotePage, AuthSchedulePage, AuthTaskPage } from "../pages";
+import AuthorizedLayout from "../pages/layouts/AuthorizedLayout";
 import AuthGaurd from "./gaurd/AuthGaurd";
 
 export function Routes() {
@@ -14,9 +14,9 @@ export function Routes() {
             ,
             children: [
                 { path: 'home', element: <AuthHomePage /> },
-                { path: 'schedule', element: <AuthHomePage /> },
-                { path: 'notes', element: <AuthHomePage /> },
-                { path: 'tasks', element: <AuthHomePage /> },
+                { path: 'schedule', element: <AuthSchedulePage /> },
+                { path: 'notes', element: <AuthNotePage /> },
+                { path: 'tasks', element: <AuthTaskPage /> },
             ]
         },
         { path: '*', element: <Navigate to='/authorized/home' replace /> }
