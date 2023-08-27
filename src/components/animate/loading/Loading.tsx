@@ -6,7 +6,7 @@ export default function Loading() {
         <Box className='loading__Box'>
             <img
                 loading="eager"
-                src='assets/Raymond-Arthur_May.svg'
+                src='/assets/Raymond-Arthur_May.svg'
                 alt='loading signature'
                 width={400}
                 height={400}
