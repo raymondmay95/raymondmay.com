@@ -1,5 +1,6 @@
 {
   "name": "raymondmay",
+  "author": "Raymond-Arthur K. May",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -59,5 +60,8 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@iconify/react": "^4.1.1",
     "@types/uuid": "^9.0.2"
+  },
+  "overrides": {
+    "nth-check": "2.1.1"
   }
 }

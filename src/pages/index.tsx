@@ -11,4 +11,7 @@ const Loadable = (Component: ElementType) => (props: any) =>
 //--------------------
 
 // Authorized Pages
-export const AuthHomePage = Loadable(lazy(() => import('./home')))
+export const AuthHomePage = Loadable(lazy(() => import('./authorized/HomePage')))
+export const AuthNotePage = Loadable(lazy(() => import('./authorized/NotePage')))
+export const AuthSchedulePage = Loadable(lazy(() => import('./authorized/SchedulePage')))
+export const AuthTaskPage = Loadable(lazy(() => import('./authorized/TaskPage')))

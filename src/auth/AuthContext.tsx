@@ -22,13 +22,13 @@ interface AuthSessionAction {
 
 interface AuthSessionState {
     user: User | null,
-    isAutherized: boolean,
+    isAuthorized: boolean,
     isInitiated: boolean
 }
 
 const InitialState: AuthSessionState = {
     user: null,
-    isAutherized: false,
+    isAuthorized: false,
     isInitiated: false
 }
 
@@ -40,13 +40,13 @@ function authReducer(session: AuthSessionState, action: AuthSessionAction) {
             return {
                 ...session,
                 user: action.payload,
-                isAutherized: true,
+                isAuthorized: true,
             };
         case AuthSessionActionKind.DEAUTHORIZE:
             return {
                 ...session,
                 user: null,
-                isAutherized: false
+                isAuthorized: false
             }
         case AuthSessionActionKind.INITIALIZE:
             return {

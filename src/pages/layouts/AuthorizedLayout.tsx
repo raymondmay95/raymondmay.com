@@ -47,16 +47,15 @@ export default function AuthorizedLayout() {
                     }
                 }}
             >
-                <Toolbar disableGutters>
+                <Toolbar sx={{ height: 55, width: drawerWidth }}>
                     <img
                         loading="eager"
                         src='/assets/Raymond-Arthur_May.svg'
                         alt='loading signature'
-                        width='auto'
-                        height={75}
+                        width='100%'
                     />
                 </Toolbar>
-                <Divider flexItem light />
+                <Divider flexItem light sx={{ borderStyle: 'dotted' }} />
                 <MenuList
                     disablePadding
                 >
@@ -105,23 +104,21 @@ export default function AuthorizedLayout() {
                 onClose={handleClose}
                 MenuListProps={{
                     'aria-labelledby': 'avatar-button',
+                    sx: { width: 130 }
                 }}
             >
-                <Stack spacing={.5} p={.75}>
-                    <MenuItem component={NavLink} to='/profile'>
-                        <Person />
-                        Profile
-                    </MenuItem>
-                    <MenuItem component={NavLink} to='/profile'>
-                        <Settings />
-                        Settings
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={async () => await signOut(Auth)}>
-                        <Logout />
-                        Log Out
-                    </MenuItem>
-                </Stack>
+                <MenuItem component={NavLink} to='/profile'>
+                    <Person />
+                    Profile
+                </MenuItem>
+                <MenuItem divider component={NavLink} to='/profile'>
+                    <Settings />
+                    Settings
+                </MenuItem>
+                <MenuItem onClick={async () => await signOut(Auth)}>
+                    <Logout />
+                    Log Out
+                </MenuItem>
             </ProfileMenu>
             <Toolbar
                 sx={{
@@ -165,10 +162,12 @@ const StyledNavMenuItem = styled((props: MenuItemProps & NavLinkProps) => (
     fontSize: 18,
     width: drawerWidth,
     color: selected ? theme.palette.text.primary : theme.palette.text.secondary,
+    display: 'flex',
+    alignItems: 'center',
     '& .MuiSvgIcon-root': {
         fontSize: 18,
         color: selected ? theme.palette.text.primary : theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
+        marginRight: theme.spacing(1.25),
     },
 }))
 
