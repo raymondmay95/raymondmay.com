@@ -1,5 +1,8 @@
+// import Calendar from "../../sections/Calendar";
+
 export default function SchedulePage() {
     return (
-        <>Schedule</>
+        // <Calendar />
+        null
     )
 }
