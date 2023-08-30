@@ -12,7 +12,7 @@ const drawerWidth = 175
 export default function AuthorizedLayout() {
     const { pathname } = useLocation()
     const isDesktop = useResponsive('up', 'md')
-    const [openDrawer, setOpenDrawer] = useState(isDesktop)
+    const [openDrawer, setOpenDrawer] = useState(false)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
