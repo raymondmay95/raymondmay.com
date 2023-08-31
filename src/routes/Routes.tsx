@@ -1,7 +1,15 @@
 import { Navigate, useRoutes } from "react-router-dom";
-import { AuthHomePage, AuthNotePage, AuthSchedulePage, AuthTaskPage } from "../pages";
+import {
+    AuthHomePage,
+    AuthNotePage,
+    AuthSchedulePage,
+    AuthTaskPage,
+    DashboardPage
+} from "../pages";
 import AuthorizedLayout from "../pages/layouts/AuthorizedLayout";
 import AuthGaurd from "./gaurd/AuthGaurd";
+import GuestGuard from "./gaurd/GuestGaurd";
+import UnauthorizedLayout from "../pages/layouts/UnauthorizedLayout";
 
 export function Routes() {
     return useRoutes([
@@ -19,6 +27,19 @@ export function Routes() {
                 { path: 'tasks', element: <AuthTaskPage /> },
             ]
         },
-        { path: '*', element: <Navigate to='/authorized/home' replace /> }
+        {
+            path: 'unauthorized',
+            element:
+                <GuestGuard>
+                    <UnauthorizedLayout />
+                </GuestGuard>,
+            children: [
+                { path: 'dashboard', element: <DashboardPage /> },
+            ]
+        },
+        { path: '404', element: <>404 not found</> },
+        { path: '500', element: <>500 error</> },
+        { index: true, element: <Navigate to='/unauthorized/dashboard' replace /> },
+        { path: '*', element: <Navigate to='/404' replace /> }
     ]);
 }
