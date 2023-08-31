@@ -1,5 +1,5 @@
 import { CalendarTodayOutlined, HomeOutlined, Logout, Menu as MenuIcon, MenuOpenOutlined, NoteAltOutlined, Person, Settings, TaskOutlined } from '@mui/icons-material';
-import { Avatar, Container, Divider, Drawer, DrawerProps, IconButton, Menu, MenuItem, MenuItemProps, MenuList, MenuProps, Stack, Toolbar, alpha, styled } from "@mui/material";
+import { Avatar, Container, Divider, Drawer, DrawerProps, IconButton, Menu, MenuItem, MenuItemProps, MenuList, MenuProps, Toolbar, alpha, styled } from "@mui/material";
 import { deepOrange } from '@mui/material/colors';
 import { useState } from 'react';
 import { signOut } from 'firebase/auth'
