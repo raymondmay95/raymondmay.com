@@ -3,6 +3,7 @@ import { Routes } from "./routes/Routes";
 import { useEffect } from "react";
 import AuthProvider from "./auth/AuthContext";
 import { CssBaseline } from "@mui/material";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
 
@@ -13,11 +14,13 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
+        </BrowserRouter>
+      </HelmetProvider>
     </>
   );
 }
