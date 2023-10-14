@@ -17,4 +17,4 @@ export const AuthSchedulePage = Loadable(lazy(() => import('./authorized/Schedul
 export const AuthTaskPage = Loadable(lazy(() => import('./authorized/TaskPage')))
 
 // Unauthorized Pages
-export const DashboardPage = Loadable(lazy(() => import('./unauthorized/DashboardPage')))
+export const DashboardPage = Loadable(lazy(() => import('./unauthorized/UnauthorizedDashboardPage')))
