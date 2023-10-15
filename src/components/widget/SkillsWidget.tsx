@@ -1,4 +1,4 @@
-import { CardActions, CardContent, CardHeader, Collapse, IconButton, Typography } from "@mui/material";
+import { CardActions, CardContent, CardHeader, Collapse, Divider, IconButton, Typography } from "@mui/material";
 import { Iconify } from "../Iconify";
 import { StyleWidgetCard } from "./StyleWidgetCard";
 import { SkillInfo } from "../../models/Widget/SkillInfo";
@@ -6,8 +6,10 @@ import { useState } from "react";
 
 export function SkillsWidget({
     skillInfo,
+    divider,
 }: {
     skillInfo: SkillInfo,
+    divider?: boolean
 }) {
 
     const {
@@ -26,47 +28,55 @@ export function SkillsWidget({
 
 
     return (
-        <StyleWidgetCard
-            id={id}
-            aria-label={ariaLabel}
-            onClick={toggleDescription}
-        >
-            <CardHeader
-                avatar={<Iconify
-                    icon={icon} />}
-                title={title}
-                subheader={subheader}
-                subheaderTypographyProps={{ variant: 'caption' }} />
-            <CardContent sx={{ px: 2, py: 0 }}>
-                <Collapse
-                    in={collapseDiscription}
-                    collapsedSize={22}
-                >
-                    <Typography
-                        fontSize={12}
-                        sx={{
-                            ...(!collapseDiscription && {
-                                whiteSpace: 'nowrap',
-                                textOverflow: 'ellipsis',
-                                overflow: 'hidden',
-                                color: 'text.disabled'
-                            })
-                        }}
+        <>
+            <StyleWidgetCard
+                id={id}
+                aria-label={ariaLabel}
+                onClick={toggleDescription}
+            >
+                <CardHeader
+                    avatar={<Iconify
+                        icon={icon} />}
+                    title={title}
+                    subheader={subheader}
+                    subheaderTypographyProps={{ variant: 'caption' }} />
+                <CardContent sx={{ px: 2, py: 0 }}>
+                    <Collapse
+                        in={collapseDiscription}
+                        collapsedSize={22}
                     >
-                        {content}
-                    </Typography>
-                </Collapse>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <IconButton
-                    onClick={(e) => { e.stopPropagation() }}
-                    href={skillInfo.navUrl}>
-                    <Iconify
-                        width={20}
-                        height={20}
-                        icon='gridicons:external' />
-                </IconButton>
-            </CardActions>
-        </StyleWidgetCard>
+                        <Typography
+                            fontSize={12}
+                            sx={{
+                                ...(!collapseDiscription && {
+                                    whiteSpace: 'nowrap',
+                                    textOverflow: 'ellipsis',
+                                    overflow: 'hidden',
+                                    color: 'text.disabled'
+                                })
+                            }}
+                        >
+                            {content}
+                        </Typography>
+                    </Collapse>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'flex-end' }}>
+                    <IconButton
+                        onClick={(e) => { e.stopPropagation() }}
+                        href={skillInfo.navUrl}>
+                        <Iconify
+                            width={20}
+                            height={20}
+                            icon='gridicons:external' />
+                    </IconButton>
+                </CardActions>
+            </StyleWidgetCard>
+            {divider && <Divider flexItem sx={(theme) => ({
+                mt: 3,
+                borderColor: !collapseDiscription
+                    ? theme.palette.divider
+                    : 'text.disabled'
+            })} />}
+        </>
     );
 }

@@ -7,8 +7,9 @@ const CONTACT_PHONE = '8082643099'
 const CONTACT_EMAIL = 'raymond.may.95@outlook.com'
 
 const SOCIAL_LINKEDIN = { title: 'LinkedIn', url: 'https://www.linkedin.com/in/coderay/' }
+const SOCIAL_GITHUB = { title: 'GitHub', url: 'https://github.com/raymondmay95' }
 
-const SOCIALS = [SOCIAL_LINKEDIN]
+const SOCIALS = [SOCIAL_LINKEDIN, SOCIAL_GITHUB]
 
 export const PROFILE_INFO = new ProfileInfo(
     'Profile_Info',
