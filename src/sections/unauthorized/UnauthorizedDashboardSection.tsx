@@ -1,19 +1,23 @@
 import { Grid } from "@mui/material";
-import { SkillsWidget } from "../../components/SkillsWidget";
-import { InfoWidgit } from "../../components/InfoWidgit";
+import { SkillsWidget } from "../../components/widget/SkillsWidget";
+import { ProfileWidget } from "../../components/widget/ProfileWidget";
 import { MY_SKILLS } from "../../constents/MY_SKILLS";
+import { PROFILE_INFO } from "../../constents/PROFILE_INFO";
+import ReduxLibraryDescrition from "./ReduxLibraryDescrition";
 
-export function UnauthorizedDashboardSection() {
+export function UnauthorizedDashboardWidgetSection() {
+
     return (
         <Grid container spacing={4}>
             <Grid item sm={12}>
-                <InfoWidgit />
+                <ProfileWidget profileInfo={PROFILE_INFO} />
             </Grid>
             {MY_SKILLS.map((skill) => (
                 <Grid
                     item
+                    xs={12}
                     sm={4}
-                    key={skill.ariaLabel}
+                    key={skill.id + '__Grid_Item'}
                 >
                     <SkillsWidget
                         skillInfo={skill}
@@ -21,6 +25,9 @@ export function UnauthorizedDashboardSection() {
                     />
                 </Grid>
             ))}
+            <Grid item sm={12}>
+                <ReduxLibraryDescrition />
+            </Grid>
         </Grid >
     );
 }

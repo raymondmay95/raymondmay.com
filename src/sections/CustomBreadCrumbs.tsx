@@ -15,6 +15,7 @@ export function CustomBreadCrumbs({ links }: { links: CustomBreadCrumbLink[]; })
                 && links.slice(0, links.length - 1).map(
                     (link) => (
                         <Link
+                            key={link.label + '__Link'}
                             underline="hover"
                             component={NavLink}
                             to={link.href || '#'}
