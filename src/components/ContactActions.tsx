@@ -6,7 +6,7 @@ export function ContactActions({ profileInfo }: { profileInfo: ProfileInfo; }) {
     return (
         <>
             <IconButton
-                href={profileInfo.phone}
+                href={`tel:${profileInfo.phone}`}
             >
                 <Phone />
             </IconButton>
