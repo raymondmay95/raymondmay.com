@@ -7,7 +7,6 @@ const REDUX_COLOR = '#764ABC'
 export default function ReduxLibraryDescrition() {
     return (
         <Stack
-            marginTop={4}
             spacing={1}
         >
             <Stack
