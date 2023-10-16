@@ -25,7 +25,7 @@ export default function MySkills({
         <Stack
             spacing={1}
         >
-            <Stack direction='row' alignItems='flex-end'>
+            <Stack direction='row' alignItems='flex-end' justifyContent={justifyContent}>
                 <Stack
                     direction='row'
                     spacing={2}
