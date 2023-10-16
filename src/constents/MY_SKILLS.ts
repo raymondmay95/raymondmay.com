@@ -5,6 +5,7 @@ const cssSummary_ENG = 'CSS (Cascading Style Sheets) is a web technology used to
 const htmlSummary_ENG = 'HTML (Hypertext Markup Language) is the standard markup language for creating web pages, defining the structure and content of a webpage using tags and elements.'
 const nodeSummary_ENG = 'Node.js is an open-source, cross-platform JavaScript runtime environment that allows developers to execute server-side code using JavaScript, enabling efficient, non-blocking, event-driven applications.'
 const reactSummary_ENG = 'React.js is an open-source JavaScript library for building user interfaces, developed and maintained by Facebook, that allows developers to create dynamic, interactive web applications with a component-based architecture.'
+const reduxSummary_ENG = "Redux is a predictable state management library for JavaScript applications, commonly used with React. It helps centralize and manage the application's state in a single store, making it easier to maintain and update. Actions trigger state changes through reducers, ensuring a unidirectional data flow and simplifying the debugging and testing of complex applications."
 const typescriptSummary_ENG = 'TypeScript is an open-source programming language developed by Microsoft that adds static typing to JavaScript, making it easier to catch and prevent errors during development and enhancing code maintainability.'
 
 
@@ -49,6 +50,14 @@ const ReactSkill = new SkillInfo(
     'https://react.dev/',
     'logos:react'
 );
+const ReduxSkill = new SkillInfo(
+    'Redux_Skill',
+    'Redux',
+    'Web Development',
+    reduxSummary_ENG,
+    'https://redux.js.org/',
+    'devicon:redux'
+);
 const TypeScriptSkill = new SkillInfo(
     'Typescript_Skill',
     'Typescript',
@@ -57,18 +66,15 @@ const TypeScriptSkill = new SkillInfo(
     'https://www.typescriptlang.org/docs/',
     'logos:typescript-icon'
 );
-
 export const MY_SKILLS = [
+    ReactSkill,
+    ReduxSkill,
+    TypeScriptSkill,
+]
+
+export const OTHER_SKILLS = [
     CloudComputingSkill,
     CSSSkill,
     HtmlSkill,
     NodeJSSkill,
-    ReactSkill,
-    TypeScriptSkill,
 ];
-
-//---------------
-
-export const ReduxDescription = "Redux is a predictable state management library for JavaScript applications, commonly used with React. It helps centralize and manage the application's state in a single store, making it easier to maintain and update. Actions trigger state changes through reducers, ensuring a unidirectional data flow and simplifying the debugging and testing of complex applications."
-
-//---------------

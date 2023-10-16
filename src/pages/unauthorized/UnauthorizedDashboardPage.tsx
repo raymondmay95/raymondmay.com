@@ -9,7 +9,7 @@ export default function UnauthorizedDashboardPage() {
             <Helmet>
                 <title>Welcome | Dashboard</title>
             </Helmet>
-            <Container maxWidth='xl'>
+            <Container maxWidth='lg'>
                 <UnauthorizedDashboardWidgetSection />
             </Container>
         </>
