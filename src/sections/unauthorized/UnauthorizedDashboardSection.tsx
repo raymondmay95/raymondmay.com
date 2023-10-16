@@ -1,13 +1,13 @@
 import { Divider, Grid, Stack, Typography } from "@mui/material";
 import { SkillsWidget } from "../../components/widget/SkillsWidget";
 // import { ProfileWidget } from "../../components/widget/ProfileWidget";
-import { MY_SKILLS } from "../../constents/MY_SKILLS";
+import { MY_SKILLS, OTHER_SKILLS } from "../../constents/MY_SKILLS";
 import { PROFILE_INFO } from "../../constents/PROFILE_INFO";
-import ReduxLibraryDescrition from "./ReduxLibraryDescrition";
 import { SocialLinks } from "../../components/SocialLinks";
 import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
+import MySkills from "./MySkills";
 
 export function UnauthorizedDashboardWidgetSection() {
     const isMobile = useResponsive('down', 'sm')
@@ -52,7 +52,10 @@ export function UnauthorizedDashboardWidgetSection() {
                     <Typography
                         paragraph
                         variant="body1"
-                        sx={{ textIndent: 8 }}
+                        sx={{
+                            textIndent: 8,
+                            py: 1
+                        }}
                     >
                         {PROFILE_INFO.content}
                     </Typography>
@@ -67,24 +70,53 @@ export function UnauthorizedDashboardWidgetSection() {
                 {/* <ProfileWidget profileInfo={PROFILE_INFO} /> */}
                 <Divider flexItem sx={{ mt: 1 }} />
             </Grid>
-            {MY_SKILLS.map((skill) => (
+            <Grid
+                item
+                xs={12}
+            >
+                <Typography
+                    variant="h5"
+                    color='text.disabled'>
+                    My Skills
+                </Typography>
+            </Grid>
+            {MY_SKILLS.map((skill, i) =>
+                <Grid
+                    item
+                    mt={1}
+                    xs={12}
+                >
+                    <MySkills
+                        align={
+                            i % 2
+                                ? 'right'
+                                : 'left'}
+                        skill={skill}
+                        key={skill.id}
+                    />
+                </Grid>
+            )}
+            <Grid item sm={12}>
+                <Typography
+                    variant="h5"
+                    color='text.disabled'>
+                    More Skills
+                </Typography>
+            </Grid>
+            {OTHER_SKILLS.map((skill) => (
                 <Grid
                     item
                     xs={12}
                     sm={6}
-                    md={4}
+                    lg={3}
                     key={skill.id + '__Grid_Item'}
                 >
                     <SkillsWidget
                         skillInfo={skill}
                         key={skill.title}
-                        divider
                     />
                 </Grid>
             ))}
-            <Grid item sm={12}>
-                <ReduxLibraryDescrition />
-            </Grid>
         </Grid >
     );
 }
