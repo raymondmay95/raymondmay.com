@@ -1,16 +1,27 @@
-import { Divider, Grid, Stack, Typography } from "@mui/material";
-import { SkillsWidget } from "../../components/widget/SkillsWidget";
-// import { ProfileWidget } from "../../components/widget/ProfileWidget";
-import { MY_SKILLS, OTHER_SKILLS } from "../../constents/MY_SKILLS";
+import { useRef, useState } from "react";
+import { Divider, Grid, List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
 import { PROFILE_INFO } from "../../constents/PROFILE_INFO";
 import { SocialLinks } from "../../components/SocialLinks";
 import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
-import MySkills from "./MySkills";
+import MyTimeline from "../../components/MyTimeline";
+import { MySkillsSection } from "./MySkillsSection";
+import { OtherSkillsSection } from "./OtherSkillsSection";
+import { TimelineEvent, timelineEvents } from "../../components/TimelineEvent";
 
 export function UnauthorizedDashboardWidgetSection() {
     const isMobile = useResponsive('down', 'sm')
+    const scrollRef = useRef<HTMLDivElement>(null)
+
+    const [selectedTimelineEvent, setSelectedTimelineEvent] = useState<TimelineEvent>(timelineEvents[timelineEvents.length - 1])
+
+    const handleSelectedTimelineEvent = (event: TimelineEvent) => {
+        setSelectedTimelineEvent(event)
+        if (scrollRef.current) {
+            scrollRef.current.scrollIntoView({ block: isMobile ? 'end' : 'nearest' })
+        }
+    }
 
     return (
         <Grid container spacing={4}>
@@ -67,8 +78,38 @@ export function UnauthorizedDashboardWidgetSection() {
                         <SocialLinks links={PROFILE_INFO.social} />
                     </Stack>
                 </Stack>
-                {/* <ProfileWidget profileInfo={PROFILE_INFO} /> */}
                 <Divider flexItem sx={{ mt: 1 }} />
+            </Grid>
+            <Grid item container>
+                <Grid item sm={7} xs={12}>
+                    <MyTimeline
+                        selectedTimelineEvent={selectedTimelineEvent}
+                        handleSelectedTimelineEvent={handleSelectedTimelineEvent}
+                    />
+                </Grid>
+                <Grid item sm={5} xs={12} ref={scrollRef}>
+                    <List
+                        subheader={
+                            <ListItemText
+                                primary={selectedTimelineEvent.company}
+                                secondary={selectedTimelineEvent.formatted_date_range}
+                            />
+                        }
+                    >
+                        {selectedTimelineEvent.content_list.map((item, i) => (
+                            <ListItem
+                                disableGutters
+                                disablePadding
+                                key={`${selectedTimelineEvent.id}_content_${i}`}
+                            >
+
+                                <ListItemText
+                                    secondary={item}
+                                />
+                            </ListItem>
+                        ))}
+                    </List>
+                </Grid>
             </Grid>
             <Grid
                 item
@@ -80,22 +121,12 @@ export function UnauthorizedDashboardWidgetSection() {
                     My Skills
                 </Typography>
             </Grid>
-            {MY_SKILLS.map((skill, i) =>
-                <Grid
-                    item
-                    mt={1}
-                    xs={12}
-                >
-                    <MySkills
-                        align={
-                            i % 2
-                                ? 'right'
-                                : 'left'}
-                        skill={skill}
-                        key={skill.id}
-                    />
-                </Grid>
-            )}
+            <Grid
+                item
+                xs={12}
+            >
+                <MySkillsSection />
+            </Grid>
             <Grid item sm={12}>
                 <Typography
                     variant="h5"
@@ -103,21 +134,9 @@ export function UnauthorizedDashboardWidgetSection() {
                     More Skills
                 </Typography>
             </Grid>
-            {OTHER_SKILLS.map((skill) => (
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    lg={3}
-                    key={skill.id + '__Grid_Item'}
-                >
-                    <SkillsWidget
-                        skillInfo={skill}
-                        key={skill.title}
-                    />
-                </Grid>
-            ))}
+            <Grid item sm={12}>
+                <OtherSkillsSection />
+            </Grid>
         </Grid >
     );
 }
-

@@ -2,6 +2,7 @@ import { SkillInfo } from "../models/Widget/SkillInfo";
 
 const cloudflareSummary_ENG = 'Cloudflare is a global content delivery and cybersecurity company that provides services to enhance the performance, security, and reliability of websites and internet applications.'
 const cssSummary_ENG = 'CSS (Cascading Style Sheets) is a web technology used to control the presentation and layout of HTML documents, allowing for the design and styling of web pages.'
+const firebaseSummary_ENG = 'Firebase is a comprehensive mobile and web application development platform developed by Google, providing a wide range of services including real-time database, authentication, hosting, and analytics, enabling developers to build high-quality apps quickly and efficiently.'
 const htmlSummary_ENG = 'HTML (Hypertext Markup Language) is the standard markup language for creating web pages, defining the structure and content of a webpage using tags and elements.'
 const nodeSummary_ENG = 'Node.js is an open-source, cross-platform JavaScript runtime environment that allows developers to execute server-side code using JavaScript, enabling efficient, non-blocking, event-driven applications.'
 const reactSummary_ENG = 'React.js is an open-source JavaScript library for building user interfaces, developed and maintained by Facebook, that allows developers to create dynamic, interactive web applications with a component-based architecture.'
@@ -26,6 +27,16 @@ const CSSSkill = new SkillInfo(
     'https://developer.mozilla.org/en-US/docs/Web/CSS',
     'logos:css-3'
 );
+
+const FirebaseSkill = new SkillInfo(
+    'Firebase_Skill',
+    'Firebase',
+    'Authentication',
+    firebaseSummary_ENG,
+    'https://firebase.google.com/docs',
+    'logos:firebase'
+)
+
 const HtmlSkill = new SkillInfo(
     'HTML_Skill',
     'HTML',
@@ -75,6 +86,7 @@ export const MY_SKILLS = [
 export const OTHER_SKILLS = [
     CloudComputingSkill,
     CSSSkill,
+    FirebaseSkill,
     HtmlSkill,
     NodeJSSkill,
 ];
