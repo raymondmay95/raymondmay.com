@@ -10,8 +10,10 @@ import Typography from '@mui/material/Typography';
 import { Iconify } from './Iconify';
 import { TimelineEvent, timelineEvents } from './TimelineEvent';
 import useResponsive from '../hooks/useResponsive';
-import { Stack } from '@mui/material';
+import { Collapse, Stack } from '@mui/material';
 import { format } from 'date-fns';
+import { SkillsContentViewArea } from '../sections/unauthorized/SkillsContentViewArea';
+import { grey } from '@mui/material/colors';
 
 
 interface MyTimelineI {
@@ -23,10 +25,14 @@ function TimelineItem({
     timelineEvent,
     align,
     handleSelectedTimelineEvent,
-    selectedTimelineEvent
+    selectedTimelineEvent,
+    last,
+    first
 }: {
     timelineEvent: TimelineEvent,
-    align?: 'right' | 'left'
+    align?: 'right' | 'left',
+    last: boolean,
+    first: boolean,
 } & MyTimelineI
 ) {
     const {
@@ -44,68 +50,78 @@ function TimelineItem({
     const iconSize = isMobile ? 30 : 48
 
     return (
-        <MuiTimelineItem
-            aria-labelledby={`${company}: ${role}`} id={id}
-            onClick={() => {
-                handleSelectedTimelineEvent(timelineEvent)
-            }}
-            onMouseEnter={() => {
-                handleSelectedTimelineEvent(timelineEvent)
-            }}
-        >
-            <MuiTimelineOppositeContent
-                sx={{ m: 'auto 0' }}
-                align={align}
-                textTransform='capitalize'
+        <>
+            <MuiTimelineItem
+                aria-labelledby={`${company}: ${role}`} id={id}
+                onClick={() => {
+                    handleSelectedTimelineEvent(timelineEvent)
+                }}
+                onMouseEnter={() => {
+                    handleSelectedTimelineEvent(timelineEvent)
+                }}
             >
-                <Stack>
-                    <Typography
-                        color={isSelected ? "primary" : "text.secondary"}
-                        variant={isMobile ? "caption" : "body2"}
-                    >
-                        {`${format(start_date, 'M/yy')} - ${format(end_date, 'M/yy')}`}
-                    </Typography>
-                    <Typography
-                        color={isSelected ? "primary" : "text.secondary"}
-                        variant='caption'
-                    >
-                        {formatted_date_range}
-                    </Typography>
+                <MuiTimelineOppositeContent
+                    sx={{ m: 'auto 0' }}
+                    align={align}
+                    textTransform='capitalize'
+                >
+                    <Stack>
+                        <Typography
+                            color={isSelected ? "primary" : "text.secondary"}
+                            variant={isMobile ? "caption" : "body2"}
+                        >
+                            {`${format(start_date, 'M/yy')} - ${format(end_date, 'M/yy')}`}
+                        </Typography>
+                        <Typography
+                            color={isSelected ? "primary" : "text.secondary"}
+                            variant='caption'
+                        >
+                            {formatted_date_range}
+                        </Typography>
+                    </Stack>
+                </MuiTimelineOppositeContent>
+                <MuiTimelineSeparator>
+                    {!first && <MuiTimelineConnector sx={{ minHeight: '20px' }} />}
+                    <MuiTimelineDot sx={{
+                        bgcolor: isSelected ? color : grey[50],
+                        p: 2
+                    }}>
+                        <Iconify
+                            height={iconSize}
+                            width={iconSize}
+                            sx={{ color: isSelected ? 'primary.dark' : 'text.disabled' }}
+                            icon={icon}
+                        />
+                    </MuiTimelineDot>
+                    <MuiTimelineConnector sx={{ minHeight: '20px' }} />
+                </MuiTimelineSeparator>
+                <MuiTimelineContent sx={{
+                    py: { xs: '5px', sm: '12px' },
+                    px: 2
+                }}>
+                    <Stack>
+                        <Typography
+                            variant={isMobile ? "subtitle1" : "h6"}
+                            component="span"
+                            color={isSelected ? 'text.default' : 'text.disabled'}
+                        >
+                            {company}
+                        </Typography>
+                        <Typography
+                            variant={isMobile ? "caption" : "body1"}
+                            color={isSelected ? 'text.default' : 'text.disabled'}
+                        >
+                            {role}
+                        </Typography>
+                    </Stack>
+                </MuiTimelineContent>
+            </MuiTimelineItem>
+            <Collapse in={isSelected}>
+                <Stack direction='row' justifyContent='center'>
+                    <SkillsContentViewArea selectedTimelineEvent={timelineEvent} />
                 </Stack>
-            </MuiTimelineOppositeContent>
-            <MuiTimelineSeparator>
-                <MuiTimelineConnector />
-                <MuiTimelineDot sx={{ bgcolor: color, p: 2 }}>
-                    <Iconify
-                        height={iconSize}
-                        width={iconSize}
-                        sx={{ color: isSelected ? 'primary.dark' : 'text.disabled' }}
-                        icon={icon}
-                    />
-                </MuiTimelineDot>
-                <MuiTimelineConnector />
-            </MuiTimelineSeparator>
-            <MuiTimelineContent sx={{
-                py: { xs: '5px', sm: '12px' },
-                px: 2
-            }}>
-                <Stack>
-                    <Typography
-                        variant={isMobile ? "subtitle1" : "h6"}
-                        component="span"
-                        color={isSelected ? 'text.default' : 'text.disabled'}
-                    >
-                        {company}
-                    </Typography>
-                    <Typography
-                        variant={isMobile ? "caption" : "body1"}
-                        color={isSelected ? 'text.default' : 'text.disabled'}
-                    >
-                        {role}
-                    </Typography>
-                </Stack>
-            </MuiTimelineContent>
-        </MuiTimelineItem>
+            </Collapse>
+        </>
     )
 }
 
@@ -117,7 +133,10 @@ export default function MyTimeline(props: MyTimelineI) {
                     {...props}
                     timelineEvent={timelineEvent}
                     key={`${timelineEvent.id}_${i}`}
-                    align={i === 0 ? 'right' : undefined} />
+                    align={i === 0 ? 'right' : undefined}
+                    last={i === timelineEvents.length - 1}
+                    first={i === 0}
+                />
             ))}
         </MuiTimeline>
     );
