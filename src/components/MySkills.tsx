@@ -1,6 +1,6 @@
 import { Divider, IconButton, Stack, Typography, alpha } from "@mui/material";
-import { Iconify } from "../../components/Iconify";
-import { SkillInfo } from "../../models/Widget/SkillInfo";
+import { Iconify } from "./Iconify";
+import { SkillInfo } from "../models/Widget/SkillInfo";
 
 const Color: Record<SkillInfo['id'], string> = {
     ReactJS_Skill: '#4483c9',
