@@ -21,11 +21,15 @@ export default function MySkills({
     const justifyContent = align === 'left'
         ? 'flex-start'
         : 'flex-end'
+
     return (
         <Stack
             spacing={1}
         >
-            <Stack direction='row' alignItems='flex-end' justifyContent={justifyContent}>
+            <Stack
+                direction='row'
+                alignItems='flex-end'
+                justifyContent={justifyContent}>
                 <Stack
                     direction='row'
                     spacing={2}
