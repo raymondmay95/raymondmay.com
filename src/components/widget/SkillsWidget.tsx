@@ -38,15 +38,16 @@ export function SkillsWidget({
                     avatar={<Iconify
                         icon={icon} />}
                     title={title}
+                    titleTypographyProps={{ variant: 'subtitle1' }}
                     subheader={subheader}
-                    subheaderTypographyProps={{ variant: 'caption' }} />
+                    subheaderTypographyProps={{ variant: 'subtitle2' }} />
                 <CardContent sx={{ px: 2, py: 0 }}>
                     <Collapse
                         in={collapseDiscription}
                         collapsedSize={22}
                     >
                         <Typography
-                            fontSize={12}
+                            fontSize={14}
                             sx={{
                                 ...(!collapseDiscription && {
                                     whiteSpace: 'nowrap',

@@ -4,11 +4,12 @@ import { SocialLinks } from "../../components/SocialLinks";
 import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
+import { TextAnimate } from "../../components/animate";
 
 export function ProfileSection() {
     const isMobile = useResponsive('down', 'sm');
     return (
-        <Stack>
+        <Stack spacing={2}>
             <Grid
                 container
                 justifyContent='space-between'
@@ -16,33 +17,32 @@ export function ProfileSection() {
             >
                 {isMobile &&
                     <Grid item>
-                        <RMAvatar sx={{ width: 55, height: 55 }} />
+                        <RMAvatar sx={{ width: 75, height: 75 }} />
                     </Grid>}
                 <Grid item>
                     <Stack>
                         <Typography
-                            variant="h4"
+                            variant="h3"
                         >
                             {PROFILE_INFO.title}
                         </Typography>
                         <Typography
                             color='text.disabled'
-                            variant="subtitle1">
+                            variant="h6">
                             {PROFILE_INFO.subheader}
                         </Typography>
                     </Stack>
                 </Grid>
                 {!isMobile &&
                     <Grid item>
-                        <RMAvatar sx={{ width: 55, height: 55 }} />
+                        <RMAvatar sx={{ width: 75, height: 75 }} />
                     </Grid>}
             </Grid>
             <Typography
                 paragraph
-                variant="body1"
                 sx={{
-                    textIndent: 8,
-                    py: 1
+                    textIndent: '1.2rem',
+                    lineHeight: '26px',
                 }}
             >
                 {PROFILE_INFO.content}
