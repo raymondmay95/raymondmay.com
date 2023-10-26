@@ -38,7 +38,7 @@ export default function MySkills({
             whileInView={{
                 opacity: 1
             }}
-            transition={{ duration: 1, }}
+            transition={{ duration: .5 }}
         >
             <Stack
                 spacing={2}

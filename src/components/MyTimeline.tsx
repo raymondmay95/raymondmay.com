@@ -58,7 +58,7 @@ function TimelineItem({
             whileInView={{
                 opacity: 1
             }}
-            transition={{ duration: .5, delay: .25 }}
+            transition={{ duration: .25, delay: .25 }}
         >
             <MuiTimelineItem
                 aria-labelledby={`${company}: ${role}`} id={id}
