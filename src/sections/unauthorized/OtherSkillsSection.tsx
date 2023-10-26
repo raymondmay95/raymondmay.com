@@ -10,7 +10,7 @@ export function OtherSkillsSection() {
                 <motion.div
                     initial={{ x: -100, opacity: 0 }}
                     whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ delay: .25, duration: 1, stiffness: 600 }}
+                    transition={{ delay: .25, duration: .25, stiffness: 600 }}
                 >
                     <Stack spacing={3}>
                         {OTHER_SKILLS.filter((_, index) => index % 2 === 0).map((skill) => (
@@ -25,7 +25,7 @@ export function OtherSkillsSection() {
                 <motion.div
                     initial={{ x: 100, opacity: 0 }}
                     whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ delay: .25, duration: 1, stiffness: 600 }}
+                    transition={{ delay: .25, duration: .25, stiffness: 600 }}
                 >
                     <Stack spacing={3}>
                         {OTHER_SKILLS.filter((_, index) => index % 2 !== 0).map((skill) => (
