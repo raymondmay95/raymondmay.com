@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { motion } from 'framer-motion'
 import { Divider, Grid, Typography } from "@mui/material";
 import useResponsive from "../../hooks/useResponsive";
 import MyTimeline from "../../components/MyTimeline";
@@ -11,7 +12,7 @@ export function UnauthorizedDashboardWidgetSection() {
     const isMobile = useResponsive('down', 'sm')
     const scrollRef = useRef<HTMLDivElement>(null)
 
-    const [selectedTimelineEvent, setSelectedTimelineEvent] = useState<TimelineEvent>(timelineEvents[isMobile ? 0 : timelineEvents.length - 1])
+    const [selectedTimelineEvent, setSelectedTimelineEvent] = useState<TimelineEvent>(timelineEvents[timelineEvents.length - 1])
 
     const handleSelectedTimelineEvent = (event: TimelineEvent) => {
         setSelectedTimelineEvent(event)
@@ -26,8 +27,14 @@ export function UnauthorizedDashboardWidgetSection() {
                 item
                 sm={12}
             >
-                <ProfileSection />
-                <Divider light flexItem sx={{ mt: 1 }} />
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                >
+                    <ProfileSection />
+                    <Divider light flexItem sx={{ mt: 1 }} />
+                </motion.div>
             </Grid>
             {/* --------------------- */}
             <Grid
@@ -47,21 +54,20 @@ export function UnauthorizedDashboardWidgetSection() {
                 <MySkillsSection />
             </Grid>
             {/* --------------------- */}
-            <Grid item sm={12}>
+            <Grid item sm={12} mt={1}>
                 <Typography
                     variant="h4"
                     color='text.disabled'>
                     More Skills
                 </Typography>
             </Grid>
-            <OtherSkillsSection />
-            <Grid
-                item
-                sm={12}
-            >
-                <Divider light flexItem sx={{ mt: 1 }} />
+            <Grid item xs={12}>
+                <OtherSkillsSection />
             </Grid>
             {/* --------------------- */}
+            <Grid item xs={12}>
+                <Divider light flexItem />
+            </Grid>
             <Grid
                 item
                 xs={12}
@@ -77,7 +83,6 @@ export function UnauthorizedDashboardWidgetSection() {
                     selectedTimelineEvent={selectedTimelineEvent}
                     handleSelectedTimelineEvent={handleSelectedTimelineEvent}
                 />
-                <Divider light flexItem sx={{ mt: 1 }} />
             </Grid>
         </Grid >
     );
