@@ -48,20 +48,26 @@ function TimelineItem({
     const isSelected = id === selectedTimelineEvent?.id
     const isMobile = useResponsive('down', 'sm')
     const iconSize = isMobile ? 30 : 48
+    const viewed = React.useRef(false)
 
     return (
         <>
             <MuiTimelineItem
                 aria-labelledby={`${company}: ${role}`} id={id}
                 onClick={() => {
+                    viewed.current = true
                     handleSelectedTimelineEvent(timelineEvent)
                 }}
                 onMouseEnter={() => {
+                    viewed.current = true
                     handleSelectedTimelineEvent(timelineEvent)
                 }}
             >
                 <MuiTimelineOppositeContent
-                    sx={{ m: 'auto 0' }}
+                    sx={{
+                        m: 'auto 0',
+                        width: '40%',
+                    }}
                     align={align}
                     textTransform='capitalize'
                 >
@@ -81,10 +87,10 @@ function TimelineItem({
                     </Stack>
                 </MuiTimelineOppositeContent>
                 <MuiTimelineSeparator>
-                    {!first && <MuiTimelineConnector sx={{ minHeight: '20px' }} />}
+                    {!first && <MuiTimelineConnector sx={{ minHeight: '15px' }} />}
                     <MuiTimelineDot sx={{
                         bgcolor: isSelected ? color : grey[50],
-                        p: 2
+                        p: 1
                     }}>
                         <Iconify
                             height={iconSize}
@@ -93,10 +99,14 @@ function TimelineItem({
                             icon={icon}
                         />
                     </MuiTimelineDot>
-                    <MuiTimelineConnector sx={{ minHeight: '20px' }} />
+                    <MuiTimelineConnector sx={{ minHeight: '15px' }} />
                 </MuiTimelineSeparator>
                 <MuiTimelineContent sx={{
-                    py: { xs: '5px', sm: '12px' },
+                    width: '40%',
+                    py: {
+                        xs: '5px',
+                        sm: '12px'
+                    },
                     px: 2
                 }}>
                     <Stack>

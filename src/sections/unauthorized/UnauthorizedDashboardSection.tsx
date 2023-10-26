@@ -21,13 +21,13 @@ export function UnauthorizedDashboardWidgetSection() {
     }
 
     return (
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
             <Grid
                 item
                 sm={12}
             >
                 <ProfileSection />
-                <Divider flexItem sx={{ mt: 1 }} />
+                <Divider light flexItem sx={{ mt: 1 }} />
             </Grid>
             {/* --------------------- */}
             <Grid
@@ -35,7 +35,7 @@ export function UnauthorizedDashboardWidgetSection() {
                 xs={12}
             >
                 <Typography
-                    variant="h5"
+                    variant="h4"
                     color='text.disabled'>
                     My Skills
                 </Typography>
@@ -49,7 +49,7 @@ export function UnauthorizedDashboardWidgetSection() {
             {/* --------------------- */}
             <Grid item sm={12}>
                 <Typography
-                    variant="h5"
+                    variant="h4"
                     color='text.disabled'>
                     More Skills
                 </Typography>
@@ -59,7 +59,7 @@ export function UnauthorizedDashboardWidgetSection() {
                 item
                 sm={12}
             >
-                <Divider flexItem sx={{ mt: 1 }} />
+                <Divider light flexItem sx={{ mt: 1 }} />
             </Grid>
             {/* --------------------- */}
             <Grid
@@ -67,7 +67,7 @@ export function UnauthorizedDashboardWidgetSection() {
                 xs={12}
             >
                 <Typography
-                    variant="h5"
+                    variant="h4"
                     color='text.disabled'>
                     My Timeline
                 </Typography>
@@ -77,7 +77,7 @@ export function UnauthorizedDashboardWidgetSection() {
                     selectedTimelineEvent={selectedTimelineEvent}
                     handleSelectedTimelineEvent={handleSelectedTimelineEvent}
                 />
-                <Divider flexItem sx={{ mt: 1 }} />
+                <Divider light flexItem sx={{ mt: 1 }} />
             </Grid>
         </Grid >
     );

@@ -63,7 +63,7 @@ const BAR_MANAGER_End_Date = new Date();
 BAR_MANAGER_End_Date.setFullYear(2021, 8);
 const BAR_MANAGER = new TimelineEvent(
     'PH_BM',
-    'flat-color-icons:manager',
+    'fluent-mdl2:party-leader',
     blue[50],
     'Paris.Hawaii',
     'Bar Manager',

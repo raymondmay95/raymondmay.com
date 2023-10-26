@@ -7,8 +7,8 @@ export function MySkillsSection() {
         <Stack spacing={2}>
             {MY_SKILLS.map((skill, i) => <MySkills
                 align={i % 2
-                    ? 'right'
-                    : 'left'}
+                    ? 'left'
+                    : 'right'}
                 skill={skill}
                 key={skill.id} />
             )}

@@ -13,8 +13,8 @@ export function SkillsContentViewArea({ selectedTimelineEvent }: { selectedTimel
             <CardHeader
                 title={selectedTimelineEvent.company}
                 subheader={selectedTimelineEvent.formatted_date_range}
-                titleTypographyProps={{ variant: 'subtitle1' }}
-                subheaderTypographyProps={{ variant: 'caption' }}
+                titleTypographyProps={{ variant: 'h6' }}
+                subheaderTypographyProps={{ variant: 'subtitle1' }}
             />
             <CardContent
                 sx={{ pt: 0 }}
@@ -30,17 +30,17 @@ export function SkillsContentViewArea({ selectedTimelineEvent }: { selectedTimel
                                 primary={`${i + 1}.`}
                                 secondary={item}
                                 primaryTypographyProps={{
-                                    variant: 'body2',
+                                    variant: 'body1',
                                     pr: '1rem',
                                     whiteSpace: 'nowrap',
                                     color: 'text.disabled'
                                 }}
                                 secondaryTypographyProps={{
-                                    variant: 'body2',
+                                    variant: 'body1',
                                 }}
                                 sx={{
                                     display: 'flex',
-                                    alignItems: 'flex-start'
+                                    alignItems: 'flex-start',
                                 }}
                             />
                         </ListItem>

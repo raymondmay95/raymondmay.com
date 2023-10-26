@@ -1,4 +1,10 @@
-import { Divider, IconButton, Stack, Typography, alpha } from "@mui/material";
+import {
+    Divider,
+    IconButton,
+    Stack,
+    Typography,
+    alpha
+} from "@mui/material";
 import { Iconify } from "./Iconify";
 import { SkillInfo } from "../models/Widget/SkillInfo";
 
@@ -18,13 +24,14 @@ export default function MySkills({
     }) {
 
     const color = Color[skill.id] || 'inherit'
+
     const justifyContent = align === 'left'
         ? 'flex-start'
         : 'flex-end'
 
     return (
         <Stack
-            spacing={1}
+            spacing={2}
         >
             <Stack
                 direction='row'
@@ -36,9 +43,12 @@ export default function MySkills({
                     alignItems='center'
                     justifyContent={justifyContent}
                 >
-                    <Iconify icon={skill.icon} />
+                    <Iconify
+                        width={26}
+                        height={26}
+                        icon={skill.icon} />
                     <Typography
-                        variant="h4"
+                        variant="h5"
                         color={color}>
                         {skill.title}
                     </Typography>
@@ -48,35 +58,37 @@ export default function MySkills({
                     href={skill.navUrl}
                 >
                     <Iconify
-                        width={16}
-                        height={16}
+                        width={14}
+                        height={14}
                         opacity={.2}
                         color="text.disabled"
                         icon='gridicons:external'
                     />
                 </IconButton>
             </Stack>
-            <Typography
-                paragraph
-                variant="body1"
-                color={color}
-                textAlign={align}
-                sx={{ textIndent: 8 }}
-            >
-                {skill.content}
-            </Typography>
+            <Stack direction='row' justifyContent={justifyContent}>
+                <Typography
+                    paragraph
+                    variant="body1"
+                    color={color}
+                    textAlign={align}
+                    sx={{ textIndent: '1rem', maxWidth: 'md' }}
+                >
+                    {skill.content}
+                </Typography>
+            </Stack>
             <Stack justifyContent={justifyContent} direction='row'>
                 <Divider
                     flexItem
                     sx={{
-                        width: '80%',
+                        width: '63%',
                         ...(color !== 'inherit'
                             && {
-                            borderColor: alpha(color, .2)
+                            borderColor: alpha(color, .4)
                         })
                     }}
                 />
             </Stack>
-        </Stack>
+        </Stack >
     );
 }
