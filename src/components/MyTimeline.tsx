@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { motion } from 'framer-motion'
 import MuiTimeline from '@mui/lab/Timeline';
 import MuiTimelineItem from '@mui/lab/TimelineItem';
 import MuiTimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -48,20 +49,26 @@ function TimelineItem({
     const isSelected = id === selectedTimelineEvent?.id
     const isMobile = useResponsive('down', 'sm')
     const iconSize = isMobile ? 30 : 48
-    const viewed = React.useRef(false)
 
     return (
-        <>
+        <motion.div
+            initial={{
+                opacity: 0
+            }}
+            whileInView={{
+                opacity: 1
+            }}
+            transition={{ duration: .5, delay: .25 }}
+        >
             <MuiTimelineItem
                 aria-labelledby={`${company}: ${role}`} id={id}
                 onClick={() => {
-                    viewed.current = true
+
                     handleSelectedTimelineEvent(timelineEvent)
                 }}
-                onMouseEnter={() => {
-                    viewed.current = true
-                    handleSelectedTimelineEvent(timelineEvent)
-                }}
+            // onMouseEnter={() => {
+            //     handleSelectedTimelineEvent(timelineEvent)
+            // }}
             >
                 <MuiTimelineOppositeContent
                     sx={{
@@ -131,7 +138,7 @@ function TimelineItem({
                     <SkillsContentViewArea selectedTimelineEvent={timelineEvent} />
                 </Stack>
             </Collapse>
-        </>
+        </motion.div>
     )
 }
 

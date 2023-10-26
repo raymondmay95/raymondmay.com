@@ -4,7 +4,6 @@ import { SocialLinks } from "../../components/SocialLinks";
 import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
-import { TextAnimate } from "../../components/animate";
 
 export function ProfileSection() {
     const isMobile = useResponsive('down', 'sm');
