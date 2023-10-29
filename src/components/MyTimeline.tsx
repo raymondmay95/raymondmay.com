@@ -9,13 +9,13 @@ import MuiTimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import MuiTimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
 import { Iconify } from './Iconify';
-import { TimelineEvent, timelineEvents } from './TimelineEvent';
+import { TimelineEvent, timelineEvents } from '../models/Widget/TimelineEvent';
 import useResponsive from '../hooks/useResponsive';
 import { Collapse, IconButton, Stack } from '@mui/material';
 import { format, isToday } from 'date-fns';
 import { SkillsContentViewArea } from '../sections/unauthorized/SkillsContentViewArea';
 import { grey } from '@mui/material/colors';
-import { widgetItemAnimation } from './widget/animationConfig';
+import { widgetIconAnimation, widgetItemAnimation } from './widget/animationConfig';
 
 
 interface MyTimelineI {
@@ -46,10 +46,17 @@ function TimelineItem({
         start_date,
         end_date
     } = timelineEvent
+    const animateOnNoSelectionPresent = selectedTimelineEvent === null
     const isSelected = id === selectedTimelineEvent?.id
     const isMobile = useResponsive('down', 'sm')
     const iconSize = isMobile ? 34 : 48
 
+    const iconAnimation = animateOnNoSelectionPresent || isSelected
+        ? widgetItemAnimation
+        : widgetIconAnimation
+
+
+    const textColor = isSelected ? "primary" : "text.secondary"
     const dateRangeString = isToday(end_date)
         ? `${format(start_date, 'M/yy')} - current`
         : `${format(start_date, 'M/yy')} - ${format(end_date, 'M/yy')}`
@@ -71,18 +78,18 @@ function TimelineItem({
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start',
-                        mt: 3
+                        mt: 3,
                     }}
                 >
                     <Typography
-                        color={isSelected ? "primary" : "text.secondary"}
-                        variant={isMobile ? "caption" : "body2"}
+                        color={textColor}
+                        variant='caption'
                         whiteSpace='nowrap'
                     >
                         {dateRangeString}
                     </Typography>
                     <Typography
-                        color={isSelected ? "primary" : "text.secondary"}
+                        color={textColor}
                         variant='caption'
                     >
                         {formatted_date_range}
@@ -90,7 +97,8 @@ function TimelineItem({
                 </MuiTimelineOppositeContent>
                 <MuiTimelineSeparator>
                     <motion.div
-                        {...widgetItemAnimation}>
+                        {...iconAnimation}
+                    >
                         <MuiTimelineDot sx={{
                             bgcolor:
                                 isSelected
@@ -112,18 +120,19 @@ function TimelineItem({
                             />
                         </MuiTimelineDot>
                     </motion.div>
-                    <MuiTimelineConnector sx={{ minHeight: 5 }} />
+                    <MuiTimelineConnector sx={{ minHeight: 5, maxHeight: 25 }} />
                 </MuiTimelineSeparator>
                 <MuiTimelineContent
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        mx: 1
                     }}>
                     <Typography
                         {...widgetItemAnimation}
-                        component={motion.h6}
-                        variant='h6'
+                        component={motion.span}
+                        variant='subtitle1'
                         color={isSelected ? 'text.default' : 'text.disabled'}
                     >
                         {company}
@@ -131,13 +140,13 @@ function TimelineItem({
                     <Typography
                         {...widgetItemAnimation}
                         component={motion.span}
-                        variant="subtitle1"
+                        variant="subtitle2"
                         color={isSelected ? 'text.default' : 'text.disabled'}
                     >
                         {role}
                     </Typography>
                 </MuiTimelineContent>
-            </MuiTimelineItem>
+            </MuiTimelineItem >
             <Collapse
                 aria-label={`${ariaLabel}: Content`}
                 component='li'

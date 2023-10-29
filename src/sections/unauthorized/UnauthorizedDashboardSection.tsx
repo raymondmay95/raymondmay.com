@@ -5,7 +5,7 @@ import useResponsive from "../../hooks/useResponsive";
 import MyTimeline from "../../components/MyTimeline";
 import { MySkillsSection } from "./MySkillsSection";
 import { OtherSkillsSection } from "./OtherSkillsSection";
-import { TimelineEvent, timelineEvents } from "../../components/TimelineEvent";
+import { TimelineEvent, timelineEvents } from "../../models/Widget/TimelineEvent";
 import { ProfileSection } from "./ProfileSection";
 import { widgetAnimation } from "../../components/widget/animationConfig";
 
@@ -32,8 +32,8 @@ export function UnauthorizedDashboardWidgetSection() {
             >
                 <ProfileSection />
             </Grid>
-            <Grid item sm={12}>
-                <Divider light flexItem sx={{ mt: 1 }} />
+            <Grid item xs={12}>
+                <Divider light flexItem />
             </Grid>
             {/* --------------------- */}
             <Grid
