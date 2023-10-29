@@ -6,10 +6,13 @@ export interface WidgetInfoI {
 }
 
 export class WidgetInfo implements WidgetInfoI {
+    public readonly ariaLabel: string
     constructor(
         public readonly id: string,
         public readonly title: string,
         public readonly subheader: string,
         public readonly content: string
-    ) { }
+    ) {
+        this.ariaLabel = `${title}: ${subheader}`
+    }
 }

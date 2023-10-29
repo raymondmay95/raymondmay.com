@@ -8,6 +8,7 @@ import {
 import { Iconify } from "./Iconify";
 import { SkillInfo } from "../models/Widget/SkillInfo";
 import { motion } from 'framer-motion'
+import { widgetItemAnimation } from "./widget/animationConfig";
 
 const Color: Record<SkillInfo['id'], string> = {
     ReactJS_Skill: '#4483c9',
@@ -31,75 +32,67 @@ export default function MySkills({
         : 'flex-end'
 
     return (
-        <motion.div
-            initial={{
-                opacity: 0
-            }}
-            whileInView={{
-                opacity: 1
-            }}
-            transition={{ duration: .5 }}
+        <Stack
+            component={motion.div}
+            {...widgetItemAnimation}
+            spacing={2}
         >
             <Stack
-                spacing={2}
-            >
+                direction='row'
+                alignItems='flex-end'
+                justifyContent={justifyContent}>
                 <Stack
                     direction='row'
-                    alignItems='flex-end'
-                    justifyContent={justifyContent}>
-                    <Stack
-                        direction='row'
-                        spacing={1}
-                        alignItems='center'
-                        justifyContent={justifyContent}
-                    >
-                        <Iconify
-                            width={26}
-                            height={26}
-                            icon={skill.icon} />
-                        <Typography
-                            variant="h5"
-                            color={color}>
-                            {skill.title}
-                        </Typography>
-                    </Stack>
-                    <IconButton
-                        sx={{ ml: .5 }}
-                        href={skill.navUrl}
-                    >
-                        <Iconify
-                            width={14}
-                            height={14}
-                            opacity={.2}
-                            color="text.disabled"
-                            icon='gridicons:external'
-                        />
-                    </IconButton>
-                </Stack>
-                <Stack direction='row' justifyContent={justifyContent}>
+                    spacing={1}
+                    alignItems='center'
+                    justifyContent={justifyContent}
+                >
+                    <Iconify
+                        width={26}
+                        height={26}
+                        icon={skill.icon} />
                     <Typography
-                        paragraph
-                        variant="body1"
-                        color={color}
-                        textAlign={align}
-                        sx={{ textIndent: '1rem', maxWidth: 'md' }}
-                    >
-                        {skill.content}
+                        variant="h5"
+                        color={color}>
+                        {skill.title}
                     </Typography>
                 </Stack>
-                <Stack justifyContent={justifyContent} direction='row'>
-                    <Divider
-                        flexItem
-                        sx={{
-                            width: '63%',
-                            ...(color !== 'inherit'
-                                && {
-                                borderColor: alpha(color, .2)
-                            })
-                        }}
+                <IconButton
+                    sx={{ ml: .5 }}
+                    href={skill.navUrl}
+                >
+                    <Iconify
+                        width={14}
+                        height={14}
+                        opacity={.2}
+                        color="text.disabled"
+                        icon='gridicons:external'
                     />
-                </Stack>
+                </IconButton>
             </Stack>
-        </motion.div>
+            <Stack direction='row' justifyContent={justifyContent}>
+                <Typography
+                    paragraph
+                    variant="body1"
+                    color={color}
+                    textAlign={align}
+                    sx={{ textIndent: '1rem', maxWidth: 'md' }}
+                >
+                    {skill.content}
+                </Typography>
+            </Stack>
+            <Stack justifyContent={justifyContent} direction='row'>
+                <Divider
+                    flexItem
+                    sx={{
+                        width: '63%',
+                        ...(color !== 'inherit'
+                            && {
+                            borderColor: alpha(color, .2)
+                        })
+                    }}
+                />
+            </Stack>
+        </Stack>
     );
 }
