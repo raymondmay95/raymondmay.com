@@ -7,6 +7,7 @@ import { MySkillsSection } from "./MySkillsSection";
 import { OtherSkillsSection } from "./OtherSkillsSection";
 import { TimelineEvent, timelineEvents } from "../../components/TimelineEvent";
 import { ProfileSection } from "./ProfileSection";
+import { widgetAnimation } from "../../components/widget/animationConfig";
 
 export function UnauthorizedDashboardWidgetSection() {
     const isMobile = useResponsive('down', 'sm')
@@ -26,15 +27,13 @@ export function UnauthorizedDashboardWidgetSection() {
             <Grid
                 item
                 sm={12}
+                component={motion.div}
+                {...widgetAnimation}
             >
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                >
-                    <ProfileSection />
-                    <Divider light flexItem sx={{ mt: 1 }} />
-                </motion.div>
+                <ProfileSection />
+            </Grid>
+            <Grid item sm={12}>
+                <Divider light flexItem sx={{ mt: 1 }} />
             </Grid>
             {/* --------------------- */}
             <Grid
@@ -50,6 +49,8 @@ export function UnauthorizedDashboardWidgetSection() {
             <Grid
                 item
                 xs={12}
+                component={motion.div}
+                {...widgetAnimation}
             >
                 <MySkillsSection />
             </Grid>
@@ -61,7 +62,11 @@ export function UnauthorizedDashboardWidgetSection() {
                     More Skills
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                component={motion.div}
+                {...widgetAnimation}
+                item
+                xs={12}>
                 <OtherSkillsSection />
             </Grid>
             {/* --------------------- */}
@@ -78,7 +83,12 @@ export function UnauthorizedDashboardWidgetSection() {
                     My Timeline
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid
+                component={motion.div}
+                {...widgetAnimation}
+                item
+                xs={12}
+            >
                 <MyTimeline
                     selectedTimelineEvent={selectedTimelineEvent}
                     handleSelectedTimelineEvent={handleSelectedTimelineEvent}

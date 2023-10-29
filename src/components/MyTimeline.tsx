@@ -11,10 +11,11 @@ import Typography from '@mui/material/Typography';
 import { Iconify } from './Iconify';
 import { TimelineEvent, timelineEvents } from './TimelineEvent';
 import useResponsive from '../hooks/useResponsive';
-import { Collapse, Stack } from '@mui/material';
-import { format } from 'date-fns';
+import { Collapse, IconButton, Stack } from '@mui/material';
+import { format, isToday } from 'date-fns';
 import { SkillsContentViewArea } from '../sections/unauthorized/SkillsContentViewArea';
 import { grey } from '@mui/material/colors';
+import { widgetItemAnimation } from './widget/animationConfig';
 
 
 interface MyTimelineI {
@@ -27,16 +28,15 @@ function TimelineItem({
     align,
     handleSelectedTimelineEvent,
     selectedTimelineEvent,
-    last,
     first
 }: {
     timelineEvent: TimelineEvent,
     align?: 'right' | 'left',
-    last: boolean,
     first: boolean,
 } & MyTimelineI
 ) {
     const {
+        ariaLabel,
         formatted_date_range,
         company,
         role,
@@ -48,110 +48,143 @@ function TimelineItem({
     } = timelineEvent
     const isSelected = id === selectedTimelineEvent?.id
     const isMobile = useResponsive('down', 'sm')
-    const iconSize = isMobile ? 30 : 48
+    const iconSize = isMobile ? 34 : 48
+
+    const dateRangeString = isToday(end_date)
+        ? `${format(start_date, 'M/yy')} - current`
+        : `${format(start_date, 'M/yy')} - ${format(end_date, 'M/yy')}`
 
     return (
-        <motion.div
-            initial={{
-                opacity: 0
-            }}
-            whileInView={{
-                opacity: 1
-            }}
-            transition={{ duration: .25, delay: .25 }}
-        >
+        <>
             <MuiTimelineItem
-                aria-labelledby={`${company}: ${role}`} id={id}
+                aria-labelledby={ariaLabel}
+                id={id}
                 onClick={() => {
 
                     handleSelectedTimelineEvent(timelineEvent)
                 }}
-            // onMouseEnter={() => {
-            //     handleSelectedTimelineEvent(timelineEvent)
-            // }}
             >
                 <MuiTimelineOppositeContent
-                    sx={{
-                        m: 'auto 0',
-                        width: '40%',
-                    }}
                     align={align}
                     textTransform='capitalize'
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        mt: 3
+                    }}
                 >
-                    <Stack>
-                        <Typography
-                            color={isSelected ? "primary" : "text.secondary"}
-                            variant={isMobile ? "caption" : "body2"}
-                        >
-                            {`${format(start_date, 'M/yy')} - ${format(end_date, 'M/yy')}`}
-                        </Typography>
-                        <Typography
-                            color={isSelected ? "primary" : "text.secondary"}
-                            variant='caption'
-                        >
-                            {formatted_date_range}
-                        </Typography>
-                    </Stack>
+                    <Typography
+                        color={isSelected ? "primary" : "text.secondary"}
+                        variant={isMobile ? "caption" : "body2"}
+                        whiteSpace='nowrap'
+                    >
+                        {dateRangeString}
+                    </Typography>
+                    <Typography
+                        color={isSelected ? "primary" : "text.secondary"}
+                        variant='caption'
+                    >
+                        {formatted_date_range}
+                    </Typography>
                 </MuiTimelineOppositeContent>
                 <MuiTimelineSeparator>
-                    {!first && <MuiTimelineConnector sx={{ minHeight: '15px' }} />}
-                    <MuiTimelineDot sx={{
-                        bgcolor: isSelected ? color : grey[50],
-                        p: 1
-                    }}>
-                        <Iconify
-                            height={iconSize}
-                            width={iconSize}
-                            sx={{ color: isSelected ? 'primary.dark' : 'text.disabled' }}
-                            icon={icon}
-                        />
-                    </MuiTimelineDot>
-                    <MuiTimelineConnector sx={{ minHeight: '15px' }} />
+                    <motion.div
+                        {...widgetItemAnimation}>
+                        <MuiTimelineDot sx={{
+                            bgcolor:
+                                isSelected
+                                    ? color
+                                    : grey[50],
+                            p: 1
+                        }}>
+                            <Iconify
+                                height={iconSize}
+                                width={iconSize}
+                                sx={{
+                                    color:
+                                        isSelected
+                                            ? 'primary.dark'
+                                            : 'text.disabled',
+                                    m: .5
+                                }}
+                                icon={icon}
+                            />
+                        </MuiTimelineDot>
+                    </motion.div>
+                    <MuiTimelineConnector sx={{ minHeight: 5 }} />
                 </MuiTimelineSeparator>
-                <MuiTimelineContent sx={{
-                    width: '40%',
-                    py: {
-                        xs: '5px',
-                        sm: '12px'
-                    },
-                    px: 2
-                }}>
-                    <Stack>
-                        <Typography
-                            variant={isMobile ? "subtitle1" : "h6"}
-                            component="span"
-                            color={isSelected ? 'text.default' : 'text.disabled'}
-                        >
-                            {company}
-                        </Typography>
-                        <Typography
-                            variant={isMobile ? "caption" : "body1"}
-                            color={isSelected ? 'text.default' : 'text.disabled'}
-                        >
-                            {role}
-                        </Typography>
-                    </Stack>
+                <MuiTimelineContent
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center'
+                    }}>
+                    <Typography
+                        {...widgetItemAnimation}
+                        component={motion.h6}
+                        variant='h6'
+                        color={isSelected ? 'text.default' : 'text.disabled'}
+                    >
+                        {company}
+                    </Typography>
+                    <Typography
+                        {...widgetItemAnimation}
+                        component={motion.span}
+                        variant="subtitle1"
+                        color={isSelected ? 'text.default' : 'text.disabled'}
+                    >
+                        {role}
+                    </Typography>
                 </MuiTimelineContent>
             </MuiTimelineItem>
-            <Collapse in={isSelected}>
-                <Stack direction='row' justifyContent='center'>
+            <Collapse
+                aria-label={`${ariaLabel}: Content`}
+                component='li'
+                sx={{ listStyleType: 'none' }}
+                in={isSelected}
+            >
+                <Stack
+                    position='relative'
+                    direction='row'
+                    justifyContent='center'>
+                    <IconButton
+                        sx={{
+                            position: 'absolute',
+                            right: 0,
+                            top: 20
+                        }}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            handleSelectedTimelineEvent(null)
+                        }}
+                    >
+                        <Iconify
+                            height={24}
+                            width={24}
+                            icon='solar:list-up-line-duotone'
+                            color='text.disabled'
+                        />
+                    </IconButton>
                     <SkillsContentViewArea selectedTimelineEvent={timelineEvent} />
                 </Stack>
             </Collapse>
-        </motion.div>
+        </>
     )
 }
 
 export default function MyTimeline(props: MyTimelineI) {
     return (
-        <MuiTimeline position="alternate">
+        <MuiTimeline
+            position="alternate"
+        >
             {timelineEvents.map((timelineEvent, i) => (
                 <TimelineItem
                     {...props}
                     timelineEvent={timelineEvent}
                     key={`${timelineEvent.id}_${i}`}
                     align={i === 0 ? 'right' : undefined}
-                    last={i === timelineEvents.length - 1}
                     first={i === 0}
                 />
             ))}

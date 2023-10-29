@@ -4,6 +4,8 @@ import { SocialLinks } from "../../components/SocialLinks";
 import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
+import { motion } from "framer-motion";
+import { widgetItemAnimation } from "../../components/widget/animationConfig";
 
 export function ProfileSection() {
     const isMobile = useResponsive('down', 'sm');
@@ -47,6 +49,8 @@ export function ProfileSection() {
                 {PROFILE_INFO.content}
             </Typography>
             <Stack
+                component={motion.div}
+                {...widgetItemAnimation}
                 direction='row'
                 justifyContent='flex-end'
                 alignItems='center'>

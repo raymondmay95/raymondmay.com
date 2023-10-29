@@ -1,7 +1,8 @@
 import { orange, purple, blue, green, grey } from '@mui/material/colors';
-import { formatDistance, formatDistanceToNow, isToday } from 'date-fns';
+import { formatDistance, } from 'date-fns';
 
 export class TimelineEvent {
+    public readonly ariaLabel: string;
     public readonly formatted_date_range: string;
     constructor(
         public readonly id: string,
@@ -13,19 +14,13 @@ export class TimelineEvent {
         public readonly end_date: Date,
         public readonly content_list: string[],
     ) {
-        if (isToday(end_date)) {
-            this.formatted_date_range = formatDistanceToNow(start_date) + " - current"
-        } else {
-            this.formatted_date_range = formatDistance(start_date, end_date, {
-                includeSeconds: false,
-            });
-        }
+        this.formatted_date_range = formatDistance(start_date, end_date)
+
+        this.ariaLabel = `${company}: ${role}`
     }
 }
-const PrivateEventDirector_Start_Date = new Date();
-PrivateEventDirector_Start_Date.setFullYear(2016, 8);
-const PrivateEventDirector_End_Date = new Date();
-PrivateEventDirector_End_Date.setFullYear(2017, 12);
+const PrivateEventDirector_Start_Date = new Date('2016 08 01');
+const PrivateEventDirector_End_Date = new Date('2017 12 01');
 const PrivateEventDirector = new TimelineEvent(
     'GEH_PED',
     'game-icons:candle-holder',
@@ -39,10 +34,8 @@ const PrivateEventDirector = new TimelineEvent(
         'I operated company vehicles and maintained property used on event sites.'
     ]
 );
-const LEAD_BARTENTDER_Start_Date = new Date();
-LEAD_BARTENTDER_Start_Date.setFullYear(2014, 8);
-const LEAD_BARTENTDER_End_Date = new Date();
-LEAD_BARTENTDER_End_Date.setFullYear(2018, 11);
+const LEAD_BARTENTDER_Start_Date = new Date('2014 8 01');
+const LEAD_BARTENTDER_End_Date = new Date('2018 11 01');
 const LEAD_BARTENTDER = new TimelineEvent(
     'MW_LB',
     'guidance:bar',
@@ -57,10 +50,8 @@ const LEAD_BARTENTDER = new TimelineEvent(
         'I maintained Point of Sale Systems, pricing and inventory, with BirchStreet and Aloha POS.'
     ]
 );
-const BAR_MANAGER_Start_Date = new Date();
-BAR_MANAGER_Start_Date.setFullYear(2018, 12);
-const BAR_MANAGER_End_Date = new Date();
-BAR_MANAGER_End_Date.setFullYear(2021, 8);
+const BAR_MANAGER_Start_Date = new Date('2018 12 01');
+const BAR_MANAGER_End_Date = new Date('2021 8 01');
 const BAR_MANAGER = new TimelineEvent(
     'PH_BM',
     'fluent-mdl2:party-leader',
@@ -75,9 +66,8 @@ const BAR_MANAGER = new TimelineEvent(
         'I maintain a healthy relationship with many of my patrons and contributed positivley to the companies image.'
     ]
 );
-const SOFTWARE_ENGINEER_STUDENT_Start_Date = new Date();
-SOFTWARE_ENGINEER_STUDENT_Start_Date.setFullYear(2020, 10);
-const SOFTWARE_ENGINEER_STUDENT_End_Date = new Date(2021, 4);
+const SOFTWARE_ENGINEER_STUDENT_Start_Date = new Date('2020 10 01');
+const SOFTWARE_ENGINEER_STUDENT_End_Date = new Date('2021 04 01');
 const SOFTWARE_ENGINEER_STUDENT = new TimelineEvent(
     'AA_SD',
     'ph:student',
@@ -92,8 +82,7 @@ const SOFTWARE_ENGINEER_STUDENT = new TimelineEvent(
         "Tested regularly to insure 100% competency of all modules."
     ]
 );
-const SOFTWARE_ENGINEER_Start_Date = new Date();
-SOFTWARE_ENGINEER_Start_Date.setFullYear(2021, 8);
+const SOFTWARE_ENGINEER_Start_Date = new Date('2021 08 01');
 const SOFTWARE_ENGINEER_End_Date = new Date();
 const SOFTWARE_ENGINEER = new TimelineEvent(
     'MMR_SD',
