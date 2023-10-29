@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, List, ListItem, ListItemText } from "@mui/material";
-import { TimelineEvent } from "../../components/TimelineEvent";
+import { TimelineEvent } from "../../models/Widget/TimelineEvent";
 
 export function SkillsContentViewArea({ selectedTimelineEvent }: { selectedTimelineEvent: TimelineEvent; }) {
     return (

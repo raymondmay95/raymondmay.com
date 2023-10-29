@@ -23,3 +23,16 @@ export const widgetItemAnimation = {
     },
     layoutDependency: true
 }
+export const widgetIconAnimation = {
+    initial: {
+        scale: 1
+    },
+    whileInView: {
+        scale: .8,
+        animationIterationCount: 3
+    },
+    transition: {
+        delay: .25
+    },
+    layoutDependency: true
+}

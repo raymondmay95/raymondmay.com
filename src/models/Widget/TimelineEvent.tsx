@@ -19,8 +19,8 @@ export class TimelineEvent {
         this.ariaLabel = `${company}: ${role}`
     }
 }
-const PrivateEventDirector_Start_Date = new Date('2016 08 01');
-const PrivateEventDirector_End_Date = new Date('2017 12 01');
+const PrivateEventDirector_Start_Date = new Date(2016, 8, 1);
+const PrivateEventDirector_End_Date = new Date(2017, 12, 1);
 const PrivateEventDirector = new TimelineEvent(
     'GEH_PED',
     'game-icons:candle-holder',
@@ -34,8 +34,8 @@ const PrivateEventDirector = new TimelineEvent(
         'I operated company vehicles and maintained property used on event sites.'
     ]
 );
-const LEAD_BARTENTDER_Start_Date = new Date('2014 8 01');
-const LEAD_BARTENTDER_End_Date = new Date('2018 11 01');
+const LEAD_BARTENTDER_Start_Date = new Date(2014, 8, 1);
+const LEAD_BARTENTDER_End_Date = new Date(2018, 11, 1);
 const LEAD_BARTENTDER = new TimelineEvent(
     'MW_LB',
     'guidance:bar',
@@ -50,8 +50,8 @@ const LEAD_BARTENTDER = new TimelineEvent(
         'I maintained Point of Sale Systems, pricing and inventory, with BirchStreet and Aloha POS.'
     ]
 );
-const BAR_MANAGER_Start_Date = new Date('2018 12 01');
-const BAR_MANAGER_End_Date = new Date('2021 8 01');
+const BAR_MANAGER_Start_Date = new Date(2018, 12, 1);
+const BAR_MANAGER_End_Date = new Date(2021, 8, 1);
 const BAR_MANAGER = new TimelineEvent(
     'PH_BM',
     'fluent-mdl2:party-leader',
@@ -66,8 +66,8 @@ const BAR_MANAGER = new TimelineEvent(
         'I maintain a healthy relationship with many of my patrons and contributed positivley to the companies image.'
     ]
 );
-const SOFTWARE_ENGINEER_STUDENT_Start_Date = new Date('2020 10 01');
-const SOFTWARE_ENGINEER_STUDENT_End_Date = new Date('2021 04 01');
+const SOFTWARE_ENGINEER_STUDENT_Start_Date = new Date(2020, 10, 1);
+const SOFTWARE_ENGINEER_STUDENT_End_Date = new Date(2021, 4, 1);
 const SOFTWARE_ENGINEER_STUDENT = new TimelineEvent(
     'AA_SD',
     'ph:student',
@@ -82,7 +82,7 @@ const SOFTWARE_ENGINEER_STUDENT = new TimelineEvent(
         "Tested regularly to insure 100% competency of all modules."
     ]
 );
-const SOFTWARE_ENGINEER_Start_Date = new Date('2021 08 01');
+const SOFTWARE_ENGINEER_Start_Date = new Date(2021, 8, 1);
 const SOFTWARE_ENGINEER_End_Date = new Date();
 const SOFTWARE_ENGINEER = new TimelineEvent(
     'MMR_SD',
