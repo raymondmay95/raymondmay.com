@@ -1,14 +1,13 @@
-import { motion } from "framer-motion";
 import { GitHub, LinkedIn } from "@mui/icons-material";
 import { IconButton, Stack } from "@mui/material";
 import { ProfileInfo } from "../models/Widget/ProfileInfo";
-import { widgetContactAnimation } from "./widget/animationConfig";
+import { AnimatedButtonContainer } from "./AnimatedButtonContainer";
+
+//TODO: React GA4
 
 export function SocialLinks({ links }: { links: ProfileInfo['social']; }) {
     return (
         <Stack
-            component={motion.div}
-            {...widgetContactAnimation}
             direction='row'
             justifyContent='flex-end'
             alignItems='center'>
@@ -16,21 +15,27 @@ export function SocialLinks({ links }: { links: ProfileInfo['social']; }) {
                 switch (link.title) {
                     case "LinkedIn":
                         return (
-                            <IconButton
-                                key={link.title + "__link"}
-                                href={link.url}
-                            >
-                                <LinkedIn />
-                            </IconButton>
+                            <AnimatedButtonContainer key={link.title + "__animated_container"}>
+                                <IconButton
+                                    aria-label="Link to linkedin"
+                                    key={link.title + "__link"}
+                                    href={link.url}
+                                >
+                                    <LinkedIn />
+                                </IconButton>
+                            </AnimatedButtonContainer>
                         );
                     case "GitHub":
                         return (
-                            <IconButton
-                                key={link.title + "__link"}
-                                href={link.url}
-                            >
-                                <GitHub />
-                            </IconButton>
+                            <AnimatedButtonContainer key={link.title + "__animated_container"}>
+                                <IconButton
+                                    aria-label="Link to github"
+                                    key={link.title + "__link"}
+                                    href={link.url}
+                                >
+                                    <GitHub />
+                                </IconButton>
+                            </AnimatedButtonContainer>
                         );
                     default:
                         return null;
