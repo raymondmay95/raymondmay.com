@@ -28,7 +28,7 @@ export function Routes() {
             ]
         },
         {
-            path: 'unauthorized',
+            path: '/',
             element:
                 <GuestGuard>
                     <UnauthorizedLayout />
@@ -39,7 +39,7 @@ export function Routes() {
         },
         { path: '404', element: <>404 not found</> },
         { path: '500', element: <>500 error</> },
-        { index: true, element: <Navigate to='/unauthorized/dashboard' replace /> },
+        { index: true, element: <Navigate to='/dashboard' replace /> },
         { path: '*', element: <Navigate to='/404' replace /> }
     ]);
 }

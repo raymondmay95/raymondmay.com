@@ -1,10 +1,17 @@
 import { Email, Phone } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import { ProfileInfo } from "../models/Widget/ProfileInfo";
+import { motion } from "framer-motion";
+import { widgetContactAnimation } from "./widget/animationConfig";
 
 export function ContactActions({ profileInfo }: { profileInfo: ProfileInfo; }) {
     return (
-        <>
+        <Stack
+            component={motion.div}
+            {...widgetContactAnimation}
+            direction='row'
+            justifyContent='flex-end'
+            alignItems='center'>
             <IconButton
                 href={`tel:${profileInfo.phone}`}
             >
@@ -15,6 +22,6 @@ export function ContactActions({ profileInfo }: { profileInfo: ProfileInfo; }) {
             >
                 <Email />
             </IconButton>
-        </>
+        </Stack>
     );
 }

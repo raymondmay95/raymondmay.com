@@ -1,11 +1,13 @@
 import { PropsWithChildren, createContext, useContext, useEffect, useReducer } from "react";
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
+import { getAnalytics, setUserId } from 'firebase/analytics'
 import { firebaseConfig } from "./config";
 import { useSnackbar } from "notistack";
 
 // -------------------
 const app = initializeApp(firebaseConfig)
+export const Analytics = getAnalytics(app)
 export const Auth = getAuth(app)
 // -------------------
 
@@ -76,8 +78,10 @@ export default function AuthProvider(props: PropsWithChildren) {
             (user) => {
                 _initialize()
                 if (user) {
+                    setUserId(Analytics, user.uid)
                     _login(user)
                 } else {
+                    setUserId(Analytics, null)
                     _logout()
                 }
             },
