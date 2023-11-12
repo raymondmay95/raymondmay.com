@@ -5,16 +5,18 @@ import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
 import { motion } from "framer-motion";
-import { widgetItemAnimation } from "../../components/widget/animationConfig";
+import { widgetAnimation, widgetItemAnimation } from "../../components/widget/animationConfig";
+import { varFade } from "../../components/animate";
 
 export function ProfileSection() {
-    const isMobile = useResponsive('down', 'sm');
+    const isMobile = useResponsive('down', 'md');
     return (
         <Stack spacing={2}>
             <Grid
                 container
                 justifyContent='space-between'
                 alignItems='center'
+                spacing={1}
             >
                 {isMobile &&
                     <Grid item>
@@ -23,6 +25,8 @@ export function ProfileSection() {
                 <Grid item>
                     <Stack>
                         <Typography
+                            component={motion.h3}
+                            {...varFade({ durationIn: .25 }).in}
                             variant="h3"
                         >
                             {PROFILE_INFO.title}
@@ -40,6 +44,8 @@ export function ProfileSection() {
                     </Grid>}
             </Grid>
             <Typography
+                component={motion.p}
+                {...widgetAnimation}
                 paragraph
                 sx={{
                     textIndent: '1.2rem',
@@ -49,8 +55,6 @@ export function ProfileSection() {
                 {PROFILE_INFO.content}
             </Typography>
             <Stack
-                component={motion.div}
-                {...widgetItemAnimation}
                 direction='row'
                 justifyContent='flex-end'
                 alignItems='center'>

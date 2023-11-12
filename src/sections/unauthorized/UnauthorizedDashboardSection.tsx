@@ -27,8 +27,6 @@ export function UnauthorizedDashboardWidgetSection() {
             <Grid
                 item
                 sm={12}
-                component={motion.div}
-                {...widgetAnimation}
             >
                 <ProfileSection />
             </Grid>
@@ -55,7 +53,11 @@ export function UnauthorizedDashboardWidgetSection() {
                 <MySkillsSection />
             </Grid>
             {/* --------------------- */}
-            <Grid item sm={12} mt={1}>
+            <Grid
+                item
+                sm={12}
+                mt={1}
+            >
                 <Typography
                     variant="h4"
                     color='text.disabled'>

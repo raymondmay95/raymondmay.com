@@ -1,3 +1,13 @@
+import { AnimationProps } from "framer-motion"
+
+export const dashboardPageAnimation: AnimationProps = {
+    animate: {
+        opacity: 1
+    },
+    transition: {
+        duration: .25,
+    },
+}
 export const widgetAnimation = {
     initial: {
         opacity: 0
@@ -11,6 +21,7 @@ export const widgetAnimation = {
     },
     layoutRoot: true
 }
+
 export const widgetItemAnimation = {
     initial: {
         scale: .2
@@ -30,6 +41,20 @@ export const widgetIconAnimation = {
     whileInView: {
         scale: .8,
         animationIterationCount: 3
+    },
+    transition: {
+        delay: .25
+    },
+    layoutDependency: true
+}
+export const widgetContactAnimation = {
+    initial: {
+        scale: .8,
+        opacity: 0
+    },
+    whileInView: {
+        scale: 1,
+        opacity: 1
     },
     transition: {
         delay: .25
