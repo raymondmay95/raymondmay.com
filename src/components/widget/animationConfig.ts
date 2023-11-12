@@ -1,63 +1,29 @@
-import { AnimationProps } from "framer-motion"
+import { varFade, varScale } from "../animate"
+import { VariantsType } from "../animate/types"
+import { varGrow, GrowProps } from "../animate/variants/grow"
 
-export const dashboardPageAnimation: AnimationProps = {
-    animate: {
-        opacity: 1
-    },
-    transition: {
-        duration: .25,
-    },
+const _dashboardPageAnimationProps: VariantsType = {}
+const _widgetAnimationProps: VariantsType = {}
+const _widgetItemAnimationProps: VariantsType = {}
+const _widgetIconAnimationProps: GrowProps = {
+    durationIn: .25,
+    inX: {
+        scaleStart: .8,
+        scaleEnd: 1
+    }
 }
-export const widgetAnimation = {
-    initial: {
-        opacity: 0
-    },
-    whileInView: {
-        opacity: 1
-    },
-    transition: {
-        duration: .25,
-        delay: .25
-    },
-    layoutRoot: true
+const _widgetContactAnimationProps: GrowProps = {
+    durationIn: .25,
+    inX: {
+        opacityStart: 0,
+        opacityEnd: 1,
+        scaleStart: .5,
+        scaleEnd: 1
+    }
 }
 
-export const widgetItemAnimation = {
-    initial: {
-        scale: .2
-    },
-    whileInView: {
-        scale: 1
-    },
-    transition: {
-        duration: .25
-    },
-    layoutDependency: true
-}
-export const widgetIconAnimation = {
-    initial: {
-        scale: 1
-    },
-    whileInView: {
-        scale: .8,
-        animationIterationCount: 3
-    },
-    transition: {
-        delay: .25
-    },
-    layoutDependency: true
-}
-export const widgetContactAnimation = {
-    initial: {
-        scale: .8,
-        opacity: 0
-    },
-    whileInView: {
-        scale: 1,
-        opacity: 1
-    },
-    transition: {
-        delay: .25
-    },
-    layoutDependency: true
-}
+export const dashboardPageAnimation = varFade(_dashboardPageAnimationProps)
+export const widgetAnimation = varScale(_widgetAnimationProps)
+export const widgetItemAnimation = varFade(_widgetItemAnimationProps)
+export const widgetIconAnimation = varGrow(_widgetIconAnimationProps).inX
+export const widgetContactAnimation = varGrow(_widgetContactAnimationProps).inX

@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { motion } from 'framer-motion'
 import MuiTimeline from '@mui/lab/Timeline';
 import MuiTimelineItem from '@mui/lab/TimelineItem';
 import MuiTimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -15,7 +13,6 @@ import { Collapse, IconButton, Stack } from '@mui/material';
 import { format, isToday } from 'date-fns';
 import { SkillsContentViewArea } from '../sections/unauthorized/SkillsContentViewArea';
 import { grey } from '@mui/material/colors';
-import { widgetIconAnimation, widgetItemAnimation } from './widget/animationConfig';
 
 
 interface MyTimelineI {
@@ -46,14 +43,14 @@ function TimelineItem({
         start_date,
         end_date
     } = timelineEvent
-    const animateOnNoSelectionPresent = selectedTimelineEvent === null
+    // const animateOnNoSelectionPresent = selectedTimelineEvent === null
     const isSelected = id === selectedTimelineEvent?.id
     const isMobile = useResponsive('down', 'sm')
     const iconSize = isMobile ? 34 : 48
 
-    const iconAnimation = animateOnNoSelectionPresent || isSelected
-        ? widgetItemAnimation
-        : widgetIconAnimation
+    // const iconAnimation = animateOnNoSelectionPresent || isSelected
+    //     ? widgetItemAnimation
+    //     : widgetIconAnimation
 
 
     const textColor = isSelected ? "primary" : "text.secondary"
@@ -96,30 +93,27 @@ function TimelineItem({
                     </Typography>
                 </MuiTimelineOppositeContent>
                 <MuiTimelineSeparator>
-                    <motion.div
-                        {...iconAnimation}
-                    >
-                        <MuiTimelineDot sx={{
-                            bgcolor:
-                                isSelected
-                                    ? color
-                                    : grey[50],
-                            p: 1
-                        }}>
-                            <Iconify
-                                height={iconSize}
-                                width={iconSize}
-                                sx={{
-                                    color:
-                                        isSelected
-                                            ? 'primary.dark'
-                                            : 'text.disabled',
-                                    m: .5
-                                }}
-                                icon={icon}
-                            />
-                        </MuiTimelineDot>
-                    </motion.div>
+
+                    <MuiTimelineDot sx={{
+                        bgcolor:
+                            isSelected
+                                ? color
+                                : grey[50],
+                        p: 1
+                    }}>
+                        <Iconify
+                            height={iconSize}
+                            width={iconSize}
+                            sx={{
+                                color:
+                                    isSelected
+                                        ? 'primary.dark'
+                                        : 'text.disabled',
+                                m: .5
+                            }}
+                            icon={icon}
+                        />
+                    </MuiTimelineDot>
                     <MuiTimelineConnector sx={{ minHeight: 5, maxHeight: 25 }} />
                 </MuiTimelineSeparator>
                 <MuiTimelineContent
@@ -130,16 +124,12 @@ function TimelineItem({
                         mx: 1
                     }}>
                     <Typography
-                        {...widgetItemAnimation}
-                        component={motion.span}
                         variant='subtitle1'
                         color={isSelected ? 'text.default' : 'text.disabled'}
                     >
                         {company}
                     </Typography>
                     <Typography
-                        {...widgetItemAnimation}
-                        component={motion.span}
                         variant="subtitle2"
                         color={isSelected ? 'text.default' : 'text.disabled'}
                     >

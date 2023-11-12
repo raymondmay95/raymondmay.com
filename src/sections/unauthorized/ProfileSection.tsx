@@ -4,9 +4,7 @@ import { SocialLinks } from "../../components/SocialLinks";
 import { ContactActions } from "../../components/ContactActions";
 import { RMAvatar } from "../../components/RMAvatar";
 import useResponsive from "../../hooks/useResponsive";
-import { motion } from "framer-motion";
 import { widgetAnimation, widgetItemAnimation } from "../../components/widget/animationConfig";
-import { varFade } from "../../components/animate";
 
 export function ProfileSection() {
     const isMobile = useResponsive('down', 'md');
@@ -25,8 +23,6 @@ export function ProfileSection() {
                 <Grid item>
                     <Stack>
                         <Typography
-                            component={motion.h3}
-                            {...varFade({ durationIn: .25 }).in}
                             variant="h3"
                         >
                             {PROFILE_INFO.title}
@@ -44,8 +40,6 @@ export function ProfileSection() {
                     </Grid>}
             </Grid>
             <Typography
-                component={motion.p}
-                {...widgetAnimation}
                 paragraph
                 sx={{
                     textIndent: '1.2rem',

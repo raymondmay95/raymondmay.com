@@ -7,8 +7,6 @@ import {
 } from "@mui/material";
 import { Iconify } from "./Iconify";
 import { SkillInfo } from "../models/Widget/SkillInfo";
-import { motion } from 'framer-motion'
-import { widgetItemAnimation } from "./widget/animationConfig";
 
 const Color: Record<SkillInfo['id'], string> = {
     ReactJS_Skill: '#4483c9',
@@ -33,8 +31,6 @@ export default function MySkills({
 
     return (
         <Stack
-            component={motion.div}
-            {...widgetItemAnimation}
             spacing={2}
         >
             <Stack

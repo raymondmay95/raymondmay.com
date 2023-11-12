@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { motion } from 'framer-motion'
 import { Divider, Grid, Typography } from "@mui/material";
 import useResponsive from "../../hooks/useResponsive";
 import MyTimeline from "../../components/MyTimeline";
@@ -7,7 +6,6 @@ import { MySkillsSection } from "./MySkillsSection";
 import { OtherSkillsSection } from "./OtherSkillsSection";
 import { TimelineEvent, timelineEvents } from "../../models/Widget/TimelineEvent";
 import { ProfileSection } from "./ProfileSection";
-import { widgetAnimation } from "../../components/widget/animationConfig";
 
 export function UnauthorizedDashboardWidgetSection() {
     const isMobile = useResponsive('down', 'sm')
@@ -47,8 +45,6 @@ export function UnauthorizedDashboardWidgetSection() {
             <Grid
                 item
                 xs={12}
-                component={motion.div}
-                {...widgetAnimation}
             >
                 <MySkillsSection />
             </Grid>
@@ -65,8 +61,6 @@ export function UnauthorizedDashboardWidgetSection() {
                 </Typography>
             </Grid>
             <Grid
-                component={motion.div}
-                {...widgetAnimation}
                 item
                 xs={12}>
                 <OtherSkillsSection />
@@ -86,8 +80,6 @@ export function UnauthorizedDashboardWidgetSection() {
                 </Typography>
             </Grid>
             <Grid
-                component={motion.div}
-                {...widgetAnimation}
                 item
                 xs={12}
             >
