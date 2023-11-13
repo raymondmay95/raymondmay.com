@@ -11,7 +11,9 @@ import { motion } from "framer-motion";
  * @returns Stack containing the Profile Photo, Name, Role/Subheader, Bio, and Contact Links
  */
 export function ProfileSection() {
+
     const isMobile = useResponsive('down', 'md');
+
     return (
         <Stack spacing={2}>
             <Grid
@@ -29,16 +31,7 @@ export function ProfileSection() {
                         <Typography
                             variant="h3"
                             component={motion.h3}
-                            initial={{
-                                opacity: .5
-                            }}
-                            animate={{
-                                opacity: 1,
-                            }}
-                            transition={{
-                                duration: .25,
-                                delay: .25
-                            }}
+                            {...generateTextAnimation(.5)}
                         >
                             {PROFILE_INFO.title}
                         </Typography>
@@ -46,16 +39,7 @@ export function ProfileSection() {
                             color='text.disabled'
                             variant="h6"
                             component={motion.h6}
-                            initial={{
-                                opacity: 0
-                            }}
-                            animate={{
-                                opacity: 1,
-                            }}
-                            transition={{
-                                duration: .25,
-                                delay: .25
-                            }}>
+                            {...generateTextAnimation(.5)}>
                             {PROFILE_INFO.subheader}
                         </Typography>
                     </Stack>
@@ -66,6 +50,8 @@ export function ProfileSection() {
                     </Grid>}
             </Grid>
             <Typography
+                component={motion.p}
+                {...generateTextAnimation(.2)}
                 paragraph
                 sx={{
                     textIndent: '1.2rem',
@@ -83,4 +69,23 @@ export function ProfileSection() {
             </Stack>
         </Stack>
     );
+}
+
+
+// ----------------
+function generateTextAnimation(opacity: number) {
+    const _opacity = opacity ?? .5
+    return (
+        {
+            initial: {
+                opacity: _opacity
+            },
+            animate: {
+                opacity: 1,
+            },
+            transition: {
+                duration: .25,
+            }
+        }
+    )
 }
